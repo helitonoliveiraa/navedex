@@ -7,6 +7,8 @@ declare module 'styled-components' {
       'gray-500': string;
       'gray-800': string;
       'gray-900': string;
+      'green-300': string;
+      'red-100': string;
     };
   }
 }

@@ -4,6 +4,7 @@ export default createGlobalStyle`
   * {
     margin: 0;
     padding: 0;
+    outline: 0;
     box-sizing: border-box;
   }
 
@@ -27,6 +28,13 @@ export default createGlobalStyle`
     color: ${({ theme }) => theme.colors['gray-900']};
     -webkit-font-smoothing: antialiased;
   }
+
+  label {
+      display: block;
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: ${({ theme }) => theme.colors['gray-900']};
+    }
 
   body, input, textarea, select, button {
     font: 400 1.6rem "Montserrat", sans-serif;

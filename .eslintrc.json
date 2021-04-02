@@ -41,6 +41,9 @@
     ],
     "react/react-in-jsx-scope": "off",
     "import/prefer-default-export": "off",
+    "jsx-a11y/label-has-associated-control": "off",
+    "react/require-default-props": "off",
+    "react/jsx-props-no-spreading": "off",
     "no-undef": "off",
     "import/extensions": [
       "error",
