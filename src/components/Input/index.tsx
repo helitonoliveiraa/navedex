@@ -14,12 +14,14 @@ import { Container, Error } from './styles';
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   id: string;
   name: string;
+  placeholder: string;
   icon?: React.ComponentType<IconBaseProps>;
 }
 
 export function Input({
-  name,
   id,
+  name,
+  placeholder,
   icon: Icon,
   ...rest
 }: InputProps): JSX.Element {
@@ -54,7 +56,7 @@ export function Input({
 
   return (
     <>
-      <label htmlFor={id}>E-mail</label>
+      <label htmlFor={id}>{placeholder}</label>
       <Container
         isErrored={!!error}
         isFocused={isFocused}
