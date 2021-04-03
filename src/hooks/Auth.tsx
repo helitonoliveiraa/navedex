@@ -8,26 +8,26 @@ import React, {
 
 import { api } from '../services/api';
 
-interface User {
+type User = {
   id: string;
   email: string;
-}
+};
 
-interface AuthState {
+type AuthState = {
   token: string;
   user: User;
-}
+};
 
-interface SignInCredenctial {
+type SignInCredenctial = {
   userEmail: string;
   password: string;
-}
+};
 
-interface AuthContextData {
+type AuthContextData = {
   user: User;
   signIn: (credentials: SignInCredenctial) => Promise<void>;
   signOut: () => void;
-}
+};
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
@@ -96,10 +96,6 @@ const AuthProvider: React.FC = ({ children }) => {
 // Auth custom Hook
 function useAuth(): AuthContextData {
   const context = useContext(AuthContext);
-
-  if (!context) {
-    throw new Error('useAuth must be used within an authProvider');
-  }
 
   return context;
 }

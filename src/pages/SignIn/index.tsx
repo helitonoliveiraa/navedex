@@ -64,7 +64,7 @@ export function SignIn(): JSX.Element {
           placeholder="Senha"
         />
 
-        <button type="submit">Entrar</button>
+        <S.SignInButton type="submit">Entrar</S.SignInButton>
       </S.Content>
     </S.Container>
   );
