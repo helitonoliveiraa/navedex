@@ -25,7 +25,8 @@ interface SignInCredenctial {
 
 interface AuthContextData {
   user: User;
-  signIn(credentials: SignInCredenctial): Promise<void>;
+  signIn: (credentials: SignInCredenctial) => Promise<void>;
+  signOut: () => void;
 }
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
@@ -34,8 +35,6 @@ const AuthProvider: React.FC = ({ children }) => {
   const [data, setData] = useState<AuthState>(() => {
     const token = localStorage.getItem('@navedex:token');
     const user = localStorage.getItem('@navedex:user');
-
-    // console.log(data);
 
     if (user && token) {
       api.defaults.headers.authorization = `Bearer ${token}`;
@@ -66,7 +65,7 @@ const AuthProvider: React.FC = ({ children }) => {
     localStorage.setItem('@navedex:token', token);
     localStorage.setItem('@navedex:user', JSON.stringify(user));
 
-    // api.defaults.headers.authorization = `Bearer ${token}`;
+    api.defaults.headers.authorization = `Bearer ${token}`;
 
     setData({
       token,
@@ -74,11 +73,19 @@ const AuthProvider: React.FC = ({ children }) => {
     });
   }, []);
 
+  const signOut = useCallback(() => {
+    localStorage.removeItem('@navedex:token');
+    localStorage.removeItem('@navedex:user');
+
+    setData({} as AuthState);
+  }, []);
+
   return (
     <AuthContext.Provider
       value={{
         user: data.user,
         signIn,
+        signOut,
       }}
     >
       {children}
