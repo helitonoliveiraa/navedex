@@ -19,7 +19,7 @@ interface AuthState {
 }
 
 interface SignInCredenctial {
-  email: string;
+  userEmail: string;
   password: string;
 }
 
@@ -32,8 +32,10 @@ const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 const AuthProvider: React.FC = ({ children }) => {
   const [data, setData] = useState<AuthState>(() => {
-    const token = localStorage.getItem('@nevadex:token');
-    const user = localStorage.getItem('@nevadex:user');
+    const token = localStorage.getItem('@navedex:token');
+    const user = localStorage.getItem('@navedex:user');
+
+    // console.log(data);
 
     if (user && token) {
       api.defaults.headers.authorization = `Bearer ${token}`;
@@ -47,20 +49,24 @@ const AuthProvider: React.FC = ({ children }) => {
     return {} as AuthState;
   });
 
-  const signIn = useCallback(async ({ email, password }) => {
+  const signIn = useCallback(async ({ userEmail, password }) => {
     const response = await api.post('users/login', {
-      email,
+      email: userEmail,
       password,
     });
 
-    const { token, user } = response.data;
+    const { token, email, id } = response.data;
+    const user = {
+      id,
+      email,
+    };
 
     console.log(response.data);
 
-    localStorage.setItem('@nevadex:token', token);
+    localStorage.setItem('@navedex:token', token);
     localStorage.setItem('@navedex:user', JSON.stringify(user));
 
-    api.defaults.headers.authorization = `Bearer ${token}`;
+    // api.defaults.headers.authorization = `Bearer ${token}`;
 
     setData({
       token,
