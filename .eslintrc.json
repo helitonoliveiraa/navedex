@@ -44,6 +44,9 @@
     "jsx-a11y/label-has-associated-control": "off",
     "react/require-default-props": "off",
     "react/jsx-props-no-spreading": "off",
+    "no-unused-vars": "off",
+    "react/prop-types": "off",
+    "arrow-parens":"off",
     "no-undef": "off",
     "import/extensions": [
       "error",
