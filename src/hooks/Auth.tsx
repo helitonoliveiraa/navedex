@@ -8,32 +8,33 @@ import React, {
 
 import { api } from '../services/api';
 
-interface User {
+type User = {
   id: string;
   email: string;
-}
+};
 
-interface AuthState {
+type AuthState = {
   token: string;
   user: User;
-}
+};
 
-interface SignInCredenctial {
-  email: string;
+type SignInCredenctial = {
+  userEmail: string;
   password: string;
-}
+};
 
-interface AuthContextData {
+type AuthContextData = {
   user: User;
-  signIn(credentials: SignInCredenctial): Promise<void>;
-}
+  signIn: (credentials: SignInCredenctial) => Promise<void>;
+  signOut: () => void;
+};
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 const AuthProvider: React.FC = ({ children }) => {
   const [data, setData] = useState<AuthState>(() => {
-    const token = localStorage.getItem('@nevadex:token');
-    const user = localStorage.getItem('@nevadex:user');
+    const token = localStorage.getItem('@navedex:token');
+    const user = localStorage.getItem('@navedex:user');
 
     if (user && token) {
       api.defaults.headers.authorization = `Bearer ${token}`;
@@ -47,17 +48,21 @@ const AuthProvider: React.FC = ({ children }) => {
     return {} as AuthState;
   });
 
-  const signIn = useCallback(async ({ email, password }) => {
+  const signIn = useCallback(async ({ userEmail, password }) => {
     const response = await api.post('users/login', {
-      email,
+      email: userEmail,
       password,
     });
 
-    const { token, user } = response.data;
+    const { token, email, id } = response.data;
+    const user = {
+      id,
+      email,
+    };
 
     console.log(response.data);
 
-    localStorage.setItem('@nevadex:token', token);
+    localStorage.setItem('@navedex:token', token);
     localStorage.setItem('@navedex:user', JSON.stringify(user));
 
     api.defaults.headers.authorization = `Bearer ${token}`;
@@ -68,11 +73,19 @@ const AuthProvider: React.FC = ({ children }) => {
     });
   }, []);
 
+  const signOut = useCallback(() => {
+    localStorage.removeItem('@navedex:token');
+    localStorage.removeItem('@navedex:user');
+
+    setData({} as AuthState);
+  }, []);
+
   return (
     <AuthContext.Provider
       value={{
         user: data.user,
         signIn,
+        signOut,
       }}
     >
       {children}
@@ -83,10 +96,6 @@ const AuthProvider: React.FC = ({ children }) => {
 // Auth custom Hook
 function useAuth(): AuthContextData {
   const context = useContext(AuthContext);
-
-  if (!context) {
-    throw new Error('useAuth must be used within an authProvider');
-  }
 
   return context;
 }

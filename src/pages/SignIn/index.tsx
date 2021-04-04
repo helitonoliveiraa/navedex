@@ -36,7 +36,7 @@ export function SignIn(): JSX.Element {
       await schema.validate(data, { abortEarly: false });
 
       await signIn({
-        email: data.email,
+        userEmail: data.email,
         password: data.password,
       });
 
@@ -64,7 +64,7 @@ export function SignIn(): JSX.Element {
           placeholder="Senha"
         />
 
-        <button type="submit">Entrar</button>
+        <S.SignInButton type="submit">Entrar</S.SignInButton>
       </S.Content>
     </S.Container>
   );

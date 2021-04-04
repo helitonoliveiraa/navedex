@@ -27,6 +27,7 @@ export default createGlobalStyle`
     background: ${({ theme }) => theme.colors.white};
     color: ${({ theme }) => theme.colors['gray-900']};
     -webkit-font-smoothing: antialiased;
+    height: 100%;
   }
 
   label {

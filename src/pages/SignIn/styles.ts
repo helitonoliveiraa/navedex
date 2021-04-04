@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
 import { Form } from '@unform/web';
-import { lighten } from 'polished';
+
+import { Button } from '../../components/Button';
 
 export const Container = styled(Form)`
   height: 100vh;
@@ -26,24 +27,10 @@ export const Content = styled.main`
       margin-bottom: 4rem;
       align-self: center;
     }
-
-    button {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      margin-top: 3.2rem;
-      border: none;
-
-      height: 4rem;
-      background: ${theme.colors['gray-900']};
-      color: ${theme.colors.white};
-
-      transition: background 0.2s;
-
-      &:hover {
-        background: ${lighten(0.1, theme.colors['gray-900'])};
-      }
-    }
   `}
+`;
+
+export const SignInButton = styled(Button)`
+  margin-top: 3.2rem;
+  height: 4rem;
 `;
