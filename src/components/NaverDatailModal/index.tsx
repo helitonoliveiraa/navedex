@@ -1,4 +1,4 @@
-import { MdModeEdit, MdDelete } from 'react-icons/md';
+import { MdModeEdit, MdDelete, MdClose } from 'react-icons/md';
 import { Modal } from '../Modal';
 
 import placeHolderAvatar from '../../assets/placeholder-avatar.png';
@@ -31,6 +31,10 @@ export function NaverDatailModal({
   return (
     <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
       <S.ContentContainer>
+        <button type="button" onClick={setIsOpen}>
+          <MdClose />
+        </button>
+
         <img
           src={naver.hasAvatar ? naver.url : placeHolderAvatar}
           alt={naver.name}

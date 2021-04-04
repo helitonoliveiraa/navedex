@@ -1,23 +1,46 @@
+import { lighten } from 'polished';
 import styled, { css } from 'styled-components';
 
 export const ContentContainer = styled.div`
-  display: flex;
-
-  img {
-    max-width: 50rem;
-    width: 100%;
-    height: 50rem;
-    object-fit: cover;
-  }
-
-  > div {
-    margin: 3.2rem;
-    height: inherit;
-    flex: 1;
+  ${({ theme }) => css`
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
+    position: relative;
+
+    > button {
+      position: absolute;
+      top: 1.6rem;
+      right: 1.6rem;
+      font-size: 0;
+      border: none;
+      background: transparent;
+
+      svg {
+        width: 2.4rem;
+        height: 2.4rem;
+        color: ${theme.colors['gray-900']};
+      }
+
+      &:hover svg {
+        color: ${lighten(0.2, theme.colors['gray-900'])};
+      }
+    }
+
+    img {
+      max-width: 50rem;
+      width: 100%;
+      height: 50rem;
+      object-fit: cover;
+    }
+
+    > div {
+      margin: 3.2rem;
+      height: inherit;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+  `}
 `;
 
 export const Content = styled.main`
@@ -64,6 +87,10 @@ export const ButtonsContainer = styled.footer`
         width: 2.4rem;
         height: 2.4rem;
         color: ${theme.colors['gray-900']};
+      }
+
+      &:hover svg {
+        color: ${lighten(0.2, theme.colors['gray-900'])};
       }
     }
   `}
