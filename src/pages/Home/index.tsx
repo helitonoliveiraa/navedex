@@ -1,11 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { MdModeEdit, MdDelete } from 'react-icons/md';
 
 import { api } from '../../services/api';
 import { Header } from '../../components/Header';
-
-import placeHolderAvatar from '../../assets/placeholder-avatar.png';
+import { Card } from '../../components/Card';
 
 import * as S from './styles';
 
@@ -25,6 +23,7 @@ type Naver = {
 
 export function Home(): JSX.Element {
   const [navers, setNavers] = useState<Naver[]>([]);
+  const [modalOpen, setModalOpen] = useState(false);
 
   const history = useHistory();
 
@@ -58,26 +57,7 @@ export function Home(): JSX.Element {
 
         <S.CardContainer>
           {navers.map(naver => (
-            <S.Card key={naver.id}>
-              <button type="button">
-                <img
-                  src={naver.hasAvatar ? naver.url : placeHolderAvatar}
-                  alt={naver.name}
-                />
-                <strong>{naver.name}</strong>
-                <span>{naver.job_role}</span>
-              </button>
-
-              <div>
-                <button type="button">
-                  <MdDelete />
-                </button>
-
-                <button type="button">
-                  <MdModeEdit />
-                </button>
-              </div>
-            </S.Card>
+            <Card naver={naver} key={naver.id} />
           ))}
         </S.CardContainer>
       </S.Content>
