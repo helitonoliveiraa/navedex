@@ -1,3 +1,4 @@
+import { lighten } from 'polished';
 import styled, { css } from 'styled-components';
 
 export const Container = styled.div`
@@ -5,12 +6,7 @@ export const Container = styled.div`
     max-width: 25%;
     width: 100%;
     padding: 0 1.6rem;
-    margin-bottom: 2rem;
-
-    > button {
-      border: none;
-      background: transparent;
-    }
+    margin-bottom: 4rem;
 
     @media (max-width: 970px) {
       & {
@@ -38,6 +34,19 @@ export const Container = styled.div`
       height: 28rem;
       object-fit: cover;
       background-color: ${theme.colors['gray-500']};
+    }
+
+    > button {
+      border: none;
+      background: transparent;
+      opacity: 1;
+
+      transition: transform 0.2s;
+
+      &:hover {
+        opacity: 0.8;
+        transform: translateY(-0.8rem);
+      }
     }
 
     strong {
@@ -72,6 +81,10 @@ export const Container = styled.div`
           width: 2.4rem;
           height: 2.4rem;
           color: ${theme.colors['gray-900']};
+        }
+
+        &:hover svg {
+          color: ${lighten(0.2, theme.colors['gray-900'])};
         }
       }
     }
