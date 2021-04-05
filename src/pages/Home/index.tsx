@@ -1,13 +1,22 @@
 import { useHistory } from 'react-router-dom';
+
+import { MdClose } from 'react-icons/md';
 import { Header } from '../../components/Header';
 import { Card } from '../../components/Card';
 
-import * as S from './styles';
 import { useNaverData } from '../../hooks/naverData';
 
+import { SmallModal } from '../../components/SmallModal';
+import * as S from './styles';
+
 export function Home(): JSX.Element {
-  const { navers } = useNaverData();
+  const { navers, isDeleted, setIsDeleted } = useNaverData();
+
   const history = useHistory();
+
+  function closeNotification() {
+    setIsDeleted(false);
+  }
 
   return (
     <S.Container>
@@ -27,6 +36,18 @@ export function Home(): JSX.Element {
           ))}
         </S.CardContainer>
       </S.Content>
+      {isDeleted && (
+        <SmallModal isOpen={isDeleted} setIsOpen={closeNotification}>
+          <S.Notification>
+            <button type="button" onClick={closeNotification}>
+              <MdClose />
+            </button>
+            <header>Naver excluído</header>
+
+            <span>Naver excluído com sucesso!</span>
+          </S.Notification>
+        </SmallModal>
+      )}
     </S.Container>
   );
 }

@@ -23,7 +23,9 @@ type Naver = {
 type NaverContextData = {
   navers: Naver[];
   createNewNaver: (data: CreateNewNaver) => Promise<void>;
-  handleDeleteOneNaver: (id: string) => Promise<void>;
+  DeleteOneNaver: (id: string) => Promise<void>;
+  isDeleted: boolean;
+  setIsDeleted: React.Dispatch<boolean>;
 };
 
 const allowedURLAvatar = /(^https?:\/\/).+(\.jpg|\.jpeg|\.png)$/i;
@@ -31,6 +33,7 @@ const allowedURLAvatar = /(^https?:\/\/).+(\.jpg|\.jpeg|\.png)$/i;
 const NaverContext = createContext<NaverContextData>({} as NaverContextData);
 
 const NaverDataProvider: React.FC = ({ children }) => {
+  const [isDeleted, setIsDeleted] = useState(false);
   const [navers, setNavers] = useState<Naver[]>([]);
   useEffect(() => {
     async function loadedNavers() {
@@ -47,16 +50,17 @@ const NaverDataProvider: React.FC = ({ children }) => {
     loadedNavers();
   }, []);
 
-  async function handleDeleteOneNaver(id: string): Promise<void> {
-    const response = await api.delete(`/navers/${id}`);
-    console.log(id);
-    setNavers(response.data);
-  }
-
   async function createNewNaver(data: CreateNewNaver) {
     const response = await api.post('/navers', data);
 
     setNavers(prevState => [...prevState, response.data]);
+  }
+
+  async function DeleteOneNaver(id: string): Promise<void> {
+    await api.delete(`/navers/${id}`);
+
+    setNavers(navers.filter(naver => naver.id !== id));
+    setIsDeleted(true);
   }
 
   return (
@@ -64,7 +68,9 @@ const NaverDataProvider: React.FC = ({ children }) => {
       value={{
         navers,
         createNewNaver,
-        handleDeleteOneNaver,
+        DeleteOneNaver,
+        isDeleted,
+        setIsDeleted,
       }}
     >
       {children}

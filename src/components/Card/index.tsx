@@ -1,34 +1,19 @@
 import { useState } from 'react';
 import { MdModeEdit, MdDelete } from 'react-icons/md';
 
-import placeHolderAvatar from '../../assets/placeholder-avatar.png';
 import { api } from '../../services/api';
+
+import placeHolderAvatar from '../../assets/placeholder-avatar.png';
+import { useNaverData } from '../../hooks/naverData';
 import { NaverDatailModal } from '../NaverDatailModal';
+import { SmallModal } from '../SmallModal';
+import { Button } from '../Button';
+
+import { NaverDetail, Naver } from '../../types';
 
 import * as S from './styles';
 
 const allowedURLAvatar = /(^https?:\/\/).+(\.jpg|\.jpeg|\.png)$/i;
-
-type NaverDetail = {
-  id: string;
-  user_id: string;
-  name: string;
-  birthdate: string;
-  job_role: string;
-  url: string;
-  project: string;
-  admission_date: string;
-  hasAvatar: boolean;
-};
-
-type Naver = {
-  id: string;
-  user_id: string;
-  name: string;
-  url: string;
-  job_role: string;
-  hasAvatar: boolean;
-};
 
 type CardProps = {
   naverData: Naver;
@@ -36,9 +21,11 @@ type CardProps = {
 
 export function Card({ naverData }: CardProps): JSX.Element {
   const [isDetailNaver, setIsDetailNaver] = useState(false);
+  const [isDeleteNaver, setIsDeleteNaver] = useState(false);
   const [naver, setNaver] = useState<NaverDetail>({} as NaverDetail);
 
-  function toggleModal(): void {
+  const { DeleteOneNaver } = useNaverData();
+  function toggleModal() {
     setIsDetailNaver(!isDetailNaver);
   }
 
@@ -54,6 +41,15 @@ export function Card({ naverData }: CardProps): JSX.Element {
     toggleModal();
   }
 
+  function closeSmallModal() {
+    setIsDeleteNaver(false);
+  }
+
+  function handleDeleteNaver(id: string) {
+    DeleteOneNaver(id);
+    closeSmallModal();
+  }
+
   return (
     <S.Container>
       <button type="button" onClick={() => showOneNaver(naverData.id)}>
@@ -66,7 +62,7 @@ export function Card({ naverData }: CardProps): JSX.Element {
       </button>
 
       <div>
-        <button type="button">
+        <button type="button" onClick={() => setIsDeleteNaver(true)}>
           <MdDelete />
         </button>
 
@@ -74,6 +70,24 @@ export function Card({ naverData }: CardProps): JSX.Element {
           <MdModeEdit />
         </button>
       </div>
+
+      {isDeleteNaver && (
+        <SmallModal isOpen={isDeleteNaver} setIsOpen={closeSmallModal}>
+          <S.Popup>
+            <strong>Excluir Naver</strong>
+
+            <span>Tem certeza que deseja excluir este Naver?</span>
+
+            <div>
+              <Button onClick={closeSmallModal}>Cancelar</Button>
+
+              <Button onClick={() => handleDeleteNaver(naverData.id)}>
+                Deletar
+              </Button>
+            </div>
+          </S.Popup>
+        </SmallModal>
+      )}
 
       {naver && isDetailNaver && (
         <NaverDatailModal
