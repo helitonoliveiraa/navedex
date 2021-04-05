@@ -7,7 +7,7 @@ import React, {
 } from 'react';
 import { IconBaseProps } from 'react-icons';
 import { useField } from '@unform/core';
-import { FiAlertCircle } from 'react-icons/fi';
+import { MdError } from 'react-icons/md';
 
 import * as S from './styles';
 
@@ -76,7 +76,7 @@ export function Input({
 
         {error && (
           <S.Error title={error}>
-            <FiAlertCircle size="2rem" />
+            <MdError size="2rem" />
           </S.Error>
         )}
       </S.Container>
