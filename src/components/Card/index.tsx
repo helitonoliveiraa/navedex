@@ -2,11 +2,14 @@ import { useState } from 'react';
 import { MdModeEdit, MdDelete } from 'react-icons/md';
 
 import placeHolderAvatar from '../../assets/placeholder-avatar.png';
+import { api } from '../../services/api';
 import { NaverDatailModal } from '../NaverDatailModal';
 
 import * as S from './styles';
 
-type Naver = {
+const allowedURLAvatar = /(^https?:\/\/).+(\.jpg|\.jpeg|\.png)$/i;
+
+type NaverDetail = {
   id: string;
   user_id: string;
   name: string;
@@ -18,26 +21,48 @@ type Naver = {
   hasAvatar: boolean;
 };
 
-type CardProps = {
-  naver: Naver;
+type Naver = {
+  id: string;
+  user_id: string;
+  name: string;
+  url: string;
+  job_role: string;
+  hasAvatar: boolean;
 };
 
-export function Card({ naver }: CardProps): JSX.Element {
+type CardProps = {
+  naverData: Naver;
+};
+
+export function Card({ naverData }: CardProps): JSX.Element {
   const [isDetailNaver, setIsDetailNaver] = useState(false);
+  const [naver, setNaver] = useState<NaverDetail>({} as NaverDetail);
 
   function toggleModal(): void {
     setIsDetailNaver(!isDetailNaver);
   }
 
+  async function showOneNaver(id: string): Promise<void> {
+    const response = await api.get<NaverDetail>(`/navers/${id}`);
+
+    const naverResponse = {
+      ...response.data,
+      hasAvatar: !!allowedURLAvatar.exec(response.data.url),
+    };
+
+    setNaver(naverResponse);
+    toggleModal();
+  }
+
   return (
     <S.Container>
-      <button type="button" onClick={toggleModal}>
+      <button type="button" onClick={() => showOneNaver(naverData.id)}>
         <img
-          src={naver.hasAvatar ? naver.url : placeHolderAvatar}
-          alt={naver.name}
+          src={naverData.hasAvatar ? naverData.url : placeHolderAvatar}
+          alt={naverData.name}
         />
-        <strong>{naver.name}</strong>
-        <span>{naver.job_role}</span>
+        <strong>{naverData.name}</strong>
+        <span>{naverData.job_role}</span>
       </button>
 
       <div>
@@ -50,7 +75,7 @@ export function Card({ naver }: CardProps): JSX.Element {
         </button>
       </div>
 
-      {isDetailNaver && (
+      {naver && isDetailNaver && (
         <NaverDatailModal
           isOpen={isDetailNaver}
           setIsOpen={toggleModal}

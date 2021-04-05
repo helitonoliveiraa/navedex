@@ -1,11 +1,14 @@
 import { MdModeEdit, MdDelete, MdClose } from 'react-icons/md';
+
+import { formatDistanceBetweenDates, formatAge } from '../../utils/formatDate';
 import { Modal } from '../Modal';
 
 import placeHolderAvatar from '../../assets/placeholder-avatar.png';
 
 import * as S from './styles';
+import { useNaverData } from '../../hooks/naverData';
 
-type Naver = {
+type NaverDetail = {
   id: string;
   user_id: string;
   name: string;
@@ -18,7 +21,7 @@ type Naver = {
 };
 
 type NaverDatailModalProps = {
-  naver: Naver;
+  naver: NaverDetail;
   isOpen: boolean;
   setIsOpen: () => void;
 };
@@ -28,6 +31,10 @@ export function NaverDatailModal({
   isOpen,
   setIsOpen,
 }: NaverDatailModalProps): JSX.Element {
+  const company_time = formatDistanceBetweenDates(naver.admission_date);
+
+  const age = formatAge(naver.birthdate);
+
   return (
     <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
       <S.ContentContainer>
@@ -46,10 +53,10 @@ export function NaverDatailModal({
             <span>{naver.job_role}</span>
 
             <strong>Idade</strong>
-            <span>{naver.birthdate}</span>
+            <span>{age}</span>
 
             <strong>Tempo de empresa</strong>
-            <span>{naver.admission_date}</span>
+            <span>{company_time}</span>
 
             <strong>Projetos que </strong>
             <span>{naver.project}</span>

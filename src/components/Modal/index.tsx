@@ -1,4 +1,3 @@
-import { rgba } from 'polished';
 import { ReactNode, useEffect, useState } from 'react';
 import ReactModal from 'react-modal';
 
