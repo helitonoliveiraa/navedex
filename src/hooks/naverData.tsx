@@ -9,6 +9,8 @@ import React, {
 
 import { api } from '../services/api';
 
+import { CreateNewNaver } from '../types';
+
 type Naver = {
   id: string;
   user_id: string;
@@ -20,6 +22,8 @@ type Naver = {
 
 type NaverContextData = {
   navers: Naver[];
+  createNewNaver: (data: CreateNewNaver) => Promise<void>;
+  handleDeleteOneNaver: (id: string) => Promise<void>;
 };
 
 const allowedURLAvatar = /(^https?:\/\/).+(\.jpg|\.jpeg|\.png)$/i;
@@ -43,10 +47,24 @@ const NaverDataProvider: React.FC = ({ children }) => {
     loadedNavers();
   }, []);
 
+  async function handleDeleteOneNaver(id: string): Promise<void> {
+    const response = await api.delete(`/navers/${id}`);
+    console.log(id);
+    setNavers(response.data);
+  }
+
+  async function createNewNaver(data: CreateNewNaver) {
+    const response = await api.post('/navers', data);
+
+    setNavers(prevState => [...prevState, response.data]);
+  }
+
   return (
     <NaverContext.Provider
       value={{
         navers,
+        createNewNaver,
+        handleDeleteOneNaver,
       }}
     >
       {children}
@@ -54,7 +72,7 @@ const NaverDataProvider: React.FC = ({ children }) => {
   );
 };
 
-// Auth custom Hook
+// Naver custom Hook
 function useNaverData(): NaverContextData {
   const context = useContext(NaverContext);
 
