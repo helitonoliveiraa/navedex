@@ -15,6 +15,7 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   id: string;
   name: string;
   placeholder: string;
+  containerStyle?: object;
   icon?: React.ComponentType<IconBaseProps>;
 }
 
@@ -22,6 +23,7 @@ export function Input({
   id,
   name,
   placeholder,
+  containerStyle,
   icon: Icon,
   ...rest
 }: InputProps): JSX.Element {
@@ -55,7 +57,7 @@ export function Input({
   }, []);
 
   return (
-    <S.Wrapper>
+    <S.Wrapper style={containerStyle}>
       <label htmlFor={id}>{placeholder}</label>
       <S.Container
         isErrored={!!error}
