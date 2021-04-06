@@ -30,12 +30,7 @@ export default createGlobalStyle`
     height: 100%;
   }
 
-  label {
-      display: block;
-      font-size: 1.4rem;
-      font-weight: 600;
-      color: ${({ theme }) => theme.colors['gray-900']};
-    }
+
 
   body, input, textarea, select, button {
     font: 400 1.6rem "Montserrat", sans-serif;

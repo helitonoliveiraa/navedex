@@ -8,6 +8,20 @@ type InputProps = {
   isErrored: boolean;
 };
 
+export const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  label {
+    display: flex;
+    align-self: flex-start;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: ${({ theme }) => theme.colors['gray-900']};
+  }
+`;
+
 export const Container = styled.div<InputProps>`
   ${({
     theme, isErrored, isFilled, isFocused,
@@ -17,10 +31,7 @@ export const Container = styled.div<InputProps>`
     border: 1px solid ${theme.colors['gray-900']};
     display: flex;
     align-items: center;
-
-    & + label {
-      margin-top: 3.2rem;
-    }
+    width: 100%;
 
     ${isErrored
     && css`
@@ -42,9 +53,12 @@ export const Container = styled.div<InputProps>`
       flex: 1;
       border: none;
       padding: 0.4rem 0.8rem;
+      width: 100%;
+
+      color: ${theme.colors['gray-900']};
 
       ::placeholder {
-        line-height: 2.4rem;
+        line-height: 1.6rem;
         color: ${theme.colors['gray-500']};
       }
     }

@@ -90,3 +90,49 @@ export const Container = styled.div`
     }
   `}
 `;
+
+export const Popup = styled.div`
+  ${({ theme }) => css`
+    padding: 3.2rem;
+
+    strong {
+      display: block;
+      font-size: 2.4rem;
+      font-weight: 600;
+      line-height: 3.6rem;
+      color: ${theme.colors['gray-900']};
+    }
+
+    span {
+      display: block;
+      margin-top: 2.4rem;
+      line-height: 3.6rem;
+      color: ${theme.colors['gray-900']};
+    }
+
+    div {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 2.4rem;
+      margin-top: 3.3rem;
+
+      button {
+        max-width: 17.6rem;
+
+        &:first-child {
+          background: transparent;
+          border: 1px solid ${theme.colors['gray-900']};
+          color: ${theme.colors['gray-900']};
+
+          transition: background 0.2s;
+
+          &:hover {
+            background: ${theme.colors['gray-900']};
+            color: ${theme.colors.white};
+          }
+        }
+      }
+    }
+  `}
+`;

@@ -7,14 +7,15 @@ import React, {
 } from 'react';
 import { IconBaseProps } from 'react-icons';
 import { useField } from '@unform/core';
-import { FiAlertCircle } from 'react-icons/fi';
+import { MdError } from 'react-icons/md';
 
-import { Container, Error } from './styles';
+import * as S from './styles';
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   id: string;
   name: string;
   placeholder: string;
+  containerStyle?: object;
   icon?: React.ComponentType<IconBaseProps>;
 }
 
@@ -22,6 +23,7 @@ export function Input({
   id,
   name,
   placeholder,
+  containerStyle,
   icon: Icon,
   ...rest
 }: InputProps): JSX.Element {
@@ -55,9 +57,9 @@ export function Input({
   }, []);
 
   return (
-    <>
+    <S.Wrapper style={containerStyle}>
       <label htmlFor={id}>{placeholder}</label>
-      <Container
+      <S.Container
         isErrored={!!error}
         isFocused={isFocused}
         isFilled={isFilled}
@@ -71,16 +73,15 @@ export function Input({
           defaultValue={defaultValue}
           onFocus={handleInputFocus}
           onBlur={handleInputBlur}
+          placeholder={placeholder}
         />
 
         {error && (
-          <Error title={error}>
-            <FiAlertCircle size="2rem" />
-          </Error>
+          <S.Error title={error}>
+            <MdError size="2rem" />
+          </S.Error>
         )}
-      </Container>
-    </>
+      </S.Container>
+    </S.Wrapper>
   );
 }
-
-export default Input;

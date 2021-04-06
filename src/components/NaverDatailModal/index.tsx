@@ -1,33 +1,53 @@
 import { MdModeEdit, MdDelete, MdClose } from 'react-icons/md';
-import { Modal } from '../Modal';
+import { useHistory } from 'react-router-dom';
+
+import {
+  formatDistanceBetweenDates,
+  formatAge,
+  formatDateToPtBR,
+} from '../../utils/formatDate';
 
 import placeHolderAvatar from '../../assets/placeholder-avatar.png';
 
-import * as S from './styles';
+import { Modal } from '../Modal';
 
-type Naver = {
-  id: string;
-  user_id: string;
-  name: string;
-  birthdate: string;
-  job_role: string;
-  url: string;
-  project: string;
-  admission_date: string;
-  hasAvatar: boolean;
-};
+import { Naver } from '../../types';
+
+import * as S from './styles';
 
 type NaverDatailModalProps = {
   naver: Naver;
   isOpen: boolean;
   setIsOpen: () => void;
+  setIsDeleteNaver: React.Dispatch<boolean>;
 };
 
 export function NaverDatailModal({
   naver,
   isOpen,
   setIsOpen,
+  setIsDeleteNaver,
 }: NaverDatailModalProps): JSX.Element {
+  const history = useHistory();
+
+  const company_time = formatDistanceBetweenDates(naver.admission_date);
+  const age = formatAge(naver.birthdate);
+
+  function handleUpdateNaver(data: Naver) {
+    const updateNaverData = {
+      ...data,
+      admission_date: formatDateToPtBR(naver.admission_date),
+      birthdate: formatDateToPtBR(naver.birthdate),
+    };
+
+    history.push('/edit-naver', { updateNaverData });
+  }
+
+  function deleteNaver() {
+    setIsDeleteNaver(true);
+    setIsOpen();
+  }
+
   return (
     <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
       <S.ContentContainer>
@@ -46,21 +66,21 @@ export function NaverDatailModal({
             <span>{naver.job_role}</span>
 
             <strong>Idade</strong>
-            <span>{naver.birthdate}</span>
+            <span>{age}</span>
 
             <strong>Tempo de empresa</strong>
-            <span>{naver.admission_date}</span>
+            <span>{company_time}</span>
 
             <strong>Projetos que </strong>
             <span>{naver.project}</span>
           </S.Content>
 
           <S.ButtonsContainer>
-            <button type="button">
+            <button type="button" onClick={deleteNaver}>
               <MdDelete />
             </button>
 
-            <button type="button">
+            <button type="button" onClick={() => handleUpdateNaver(naver)}>
               <MdModeEdit />
             </button>
           </S.ButtonsContainer>

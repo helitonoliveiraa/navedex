@@ -1,17 +1,17 @@
-import { ReactNode, useEffect, useState } from 'react';
-import ReactModal from 'react-modal';
+import { useEffect, useState } from 'react';
+import Modal from 'react-modal';
 
-type ModalProps = {
+type SmallModalProps = {
   isOpen: boolean;
   setIsOpen: () => void;
-  children: ReactNode;
+  children: React.ReactNode;
 };
 
-export function Modal({
+export function SmallModal({
   isOpen,
   setIsOpen,
   children,
-}: ModalProps): JSX.Element {
+}: SmallModalProps): JSX.Element {
   const [modalStatus, setModalStatus] = useState(isOpen);
 
   useEffect(() => {
@@ -21,10 +21,10 @@ export function Modal({
   }, [isOpen, modalStatus]);
 
   return (
-    <ReactModal
+    <Modal
       shouldCloseOnOverlayClick={!false}
       onRequestClose={setIsOpen}
-      isOpen={modalStatus}
+      isOpen={isOpen}
       ariaHideApp={false}
       style={{
         content: {
@@ -34,11 +34,11 @@ export function Modal({
           bottom: 'auto',
           marginRight: '-50%',
           transform: 'translate(-50%, -50%)',
-          background: '#F0F0F5',
+          background: '#FFFFFF',
           color: '#000000',
           borderRadius: '0',
           width: '100%',
-          maxWidth: '100rem',
+          maxWidth: '59.2rem',
           border: 'none',
           padding: '0',
         },
@@ -48,6 +48,6 @@ export function Modal({
       }}
     >
       {children}
-    </ReactModal>
+    </Modal>
   );
 }

@@ -7,7 +7,7 @@ import { getValidationErrors } from '../../utils/validationErros';
 import { useAuth } from '../../hooks/Auth';
 
 import Logo from '../../assets/logo.png';
-import Input from '../../components/Input';
+import { Input } from '../../components/Input';
 
 import * as S from './styles';
 
@@ -58,6 +58,7 @@ export function SignIn(): JSX.Element {
         <Input name="email" id="email" placeholder="E-mail" />
 
         <Input
+          containerStyle={{ marginTop: 32 }}
           type="password"
           name="password"
           id="password"
