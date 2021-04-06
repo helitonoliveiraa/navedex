@@ -6,42 +6,34 @@ import {
   formatAge,
   formatDateToPtBR,
 } from '../../utils/formatDate';
-import { Modal } from '../Modal';
 
 import placeHolderAvatar from '../../assets/placeholder-avatar.png';
+
+import { Modal } from '../Modal';
+
 import { Naver } from '../../types';
 
 import * as S from './styles';
-
-type NaverDetail = {
-  id: string;
-  user_id: string;
-  name: string;
-  birthdate: string;
-  job_role: string;
-  url: string;
-  project: string;
-  admission_date: string;
-  hasAvatar: boolean;
-};
 
 type NaverDatailModalProps = {
   naver: Naver;
   isOpen: boolean;
   setIsOpen: () => void;
+  setIsDeleteNaver: React.Dispatch<boolean>;
 };
 
 export function NaverDatailModal({
   naver,
   isOpen,
   setIsOpen,
+  setIsDeleteNaver,
 }: NaverDatailModalProps): JSX.Element {
   const history = useHistory();
 
   const company_time = formatDistanceBetweenDates(naver.admission_date);
   const age = formatAge(naver.birthdate);
 
-  function handleEditNaver(data: Naver) {
+  function handleUpdateNaver(data: Naver) {
     const updateNaverData = {
       ...data,
       admission_date: formatDateToPtBR(naver.admission_date),
@@ -49,6 +41,11 @@ export function NaverDatailModal({
     };
 
     history.push('/edit-naver', { updateNaverData });
+  }
+
+  function deleteNaver() {
+    setIsDeleteNaver(true);
+    setIsOpen();
   }
 
   return (
@@ -79,11 +76,11 @@ export function NaverDatailModal({
           </S.Content>
 
           <S.ButtonsContainer>
-            <button type="button">
+            <button type="button" onClick={deleteNaver}>
               <MdDelete />
             </button>
 
-            <button type="button" onClick={() => handleEditNaver(naver)}>
+            <button type="button" onClick={() => handleUpdateNaver(naver)}>
               <MdModeEdit />
             </button>
           </S.ButtonsContainer>

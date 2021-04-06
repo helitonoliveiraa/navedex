@@ -8,7 +8,7 @@ import * as Yup from 'yup';
 
 import { getValidationErrors } from '../../utils/validationErros';
 import { useNaverData } from '../../hooks/naverData';
-import { CreateNewNaver } from '../../types';
+import { Naver } from '../../types';
 
 import { Header } from '../../components/Header';
 import { Input } from '../../components/Input';
@@ -16,13 +16,14 @@ import { SmallModal } from '../../components/SmallModal';
 
 import * as S from './styles';
 
-type AddFormData = CreateNewNaver;
+type AddFormData = Naver;
 
 export function CreateNaver(): JSX.Element {
   const [openSuccessModal, setOpenSuccessModal] = useState(false);
   const formRef = useRef<FormHandles>(null);
 
   const { createNewNaver } = useNaverData();
+  const history = useHistory();
 
   async function handleCreateNewNaver(
     data: AddFormData,
@@ -58,9 +59,9 @@ export function CreateNaver(): JSX.Element {
 
   function closeSuccessModal() {
     setOpenSuccessModal(false);
+    history.push('/home');
   }
 
-  const history = useHistory();
   return (
     <>
       <Header />

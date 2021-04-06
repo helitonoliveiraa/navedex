@@ -1,7 +1,6 @@
 import React, {
   // eslint-disable-next-line indent
   createContext,
-  useCallback,
   useContext,
   useEffect,
   useState,
@@ -10,7 +9,7 @@ import React, {
 import { api } from '../services/api';
 import { formatDateToPtBR } from '../utils/formatDate';
 
-import { CreateNewNaver, Naver, NaverUpdate } from '../types';
+import { Naver, NaverUpdate } from '../types';
 
 type NaverContextData = {
   navers: Naver[];
@@ -18,7 +17,7 @@ type NaverContextData = {
   setIsDeleted: React.Dispatch<boolean>;
   updateNaver: (data: Naver) => Promise<void>;
   DeleteOneNaver: (id: string) => Promise<void>;
-  createNewNaver: (data: CreateNewNaver) => Promise<void>;
+  createNewNaver: (data: Naver) => Promise<void>;
 };
 
 const allowedURLAvatar = /(^https?:\/\/).+(\.jpg|\.jpeg|\.png)$/i;
@@ -45,10 +44,17 @@ const NaverDataProvider: React.FC = ({ children }) => {
     loadedNavers();
   }, []);
 
-  async function createNewNaver(data: CreateNewNaver) {
+  async function createNewNaver(data: Naver) {
     const response = await api.post('/navers', data);
 
-    setNavers(prevState => [...prevState, response.data]);
+    const createdNaver = {
+      ...response.data,
+      hasAvatar: !!allowedURLAvatar.exec(response.data.url),
+      admission_date: formatDateToPtBR(response.data.admission_date),
+      birthdate: formatDateToPtBR(response.data.birthdate),
+    };
+
+    setNavers(prevState => [...prevState, createdNaver]);
   }
 
   async function DeleteOneNaver(id: string): Promise<void> {

@@ -101,6 +101,7 @@ export function Card({ naverData }: CardProps): JSX.Element {
           isOpen={isDetailNaver}
           setIsOpen={toggleModal}
           naver={naver}
+          setIsDeleteNaver={setIsDeleteNaver}
         />
       )}
     </S.Container>

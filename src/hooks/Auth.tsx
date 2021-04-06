@@ -60,8 +60,6 @@ const AuthProvider: React.FC = ({ children }) => {
       email,
     };
 
-    console.log(response.data);
-
     localStorage.setItem('@navedex:token', token);
     localStorage.setItem('@navedex:user', JSON.stringify(user));
 

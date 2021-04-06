@@ -1,8 +1,8 @@
 import { useRef, useState } from 'react';
 import { Form } from '@unform/web';
-import { FormHandles, FormHelpers } from '@unform/core';
+import { FormHandles } from '@unform/core';
 import { MdKeyboardArrowLeft } from 'react-icons/md';
-import { useHistory, useLocation, useParams } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { MdClose } from 'react-icons/md';
 import * as Yup from 'yup';
 
