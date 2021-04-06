@@ -7,7 +7,7 @@ import { getValidationErrors } from '../../utils/validationErros';
 import { useAuth } from '../../hooks/Auth';
 
 import Logo from '../../assets/logo.png';
-import Input from '../../components/Input';
+import { Input } from '../../components/Input';
 
 import * as S from './styles';
 

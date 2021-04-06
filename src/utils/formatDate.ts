@@ -4,7 +4,6 @@ import ptBR from 'date-fns/locale/pt';
 export function formatDistanceBetweenDates(date: string): string {
   return formatDistanceToNow(new Date(date), {
     locale: ptBR,
-    addSuffix: true,
   });
 }
 
@@ -15,4 +14,8 @@ export function formatAge(age_date: string): string {
     .split(' ')
     .splice(-2)
     .join(' ');
+}
+
+export function formatDateToPtBR(date: string): string {
+  return new Intl.DateTimeFormat('pt-BR').format(new Date(date));
 }

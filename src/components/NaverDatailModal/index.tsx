@@ -1,12 +1,17 @@
 import { MdModeEdit, MdDelete, MdClose } from 'react-icons/md';
+import { useHistory } from 'react-router-dom';
 
-import { formatDistanceBetweenDates, formatAge } from '../../utils/formatDate';
+import {
+  formatDistanceBetweenDates,
+  formatAge,
+  formatDateToPtBR,
+} from '../../utils/formatDate';
 import { Modal } from '../Modal';
 
 import placeHolderAvatar from '../../assets/placeholder-avatar.png';
+import { Naver } from '../../types';
 
 import * as S from './styles';
-import { useNaverData } from '../../hooks/naverData';
 
 type NaverDetail = {
   id: string;
@@ -21,7 +26,7 @@ type NaverDetail = {
 };
 
 type NaverDatailModalProps = {
-  naver: NaverDetail;
+  naver: Naver;
   isOpen: boolean;
   setIsOpen: () => void;
 };
@@ -31,9 +36,20 @@ export function NaverDatailModal({
   isOpen,
   setIsOpen,
 }: NaverDatailModalProps): JSX.Element {
-  const company_time = formatDistanceBetweenDates(naver.admission_date);
+  const history = useHistory();
 
+  const company_time = formatDistanceBetweenDates(naver.admission_date);
   const age = formatAge(naver.birthdate);
+
+  function handleEditNaver(data: Naver) {
+    const updateNaverData = {
+      ...data,
+      admission_date: formatDateToPtBR(naver.admission_date),
+      birthdate: formatDateToPtBR(naver.birthdate),
+    };
+
+    history.push('/edit-naver', { updateNaverData });
+  }
 
   return (
     <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
@@ -67,7 +83,7 @@ export function NaverDatailModal({
               <MdDelete />
             </button>
 
-            <button type="button">
+            <button type="button" onClick={() => handleEditNaver(naver)}>
               <MdModeEdit />
             </button>
           </S.ButtonsContainer>

@@ -25,7 +25,7 @@ export function Home(): JSX.Element {
       <S.Content>
         <S.ContentHeader>
           <strong>Navers</strong>
-          <S.AddButton onClick={() => history.push('/add-naver')}>
+          <S.AddButton onClick={() => history.push('/create-naver')}>
             Adicionar Naver
           </S.AddButton>
         </S.ContentHeader>

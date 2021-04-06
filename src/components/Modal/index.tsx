@@ -38,7 +38,7 @@ export function Modal({
           color: '#000000',
           borderRadius: '0',
           width: '100%',
-          maxWidth: '1000px',
+          maxWidth: '100rem',
           border: 'none',
           padding: '0',
         },

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { MdModeEdit, MdDelete } from 'react-icons/md';
+import { useHistory } from 'react-router-dom';
 
 import { api } from '../../services/api';
 
@@ -23,6 +24,8 @@ export function Card({ naverData }: CardProps): JSX.Element {
   const [isDetailNaver, setIsDetailNaver] = useState(false);
   const [isDeleteNaver, setIsDeleteNaver] = useState(false);
   const [naver, setNaver] = useState<NaverDetail>({} as NaverDetail);
+
+  const history = useHistory();
 
   const { DeleteOneNaver } = useNaverData();
   function toggleModal() {
@@ -50,6 +53,10 @@ export function Card({ naverData }: CardProps): JSX.Element {
     closeSmallModal();
   }
 
+  function handleUpdateNaver(updateNaverData: Naver) {
+    history.push('/edit-naver', { updateNaverData });
+  }
+
   return (
     <S.Container>
       <button type="button" onClick={() => showOneNaver(naverData.id)}>
@@ -66,7 +73,7 @@ export function Card({ naverData }: CardProps): JSX.Element {
           <MdDelete />
         </button>
 
-        <button type="button">
+        <button type="button" onClick={() => handleUpdateNaver(naverData)}>
           <MdModeEdit />
         </button>
       </div>
