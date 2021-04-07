@@ -5,6 +5,7 @@ export const ContentContainer = styled.div`
   ${({ theme }) => css`
     display: flex;
     position: relative;
+    background: ${theme.colors.white};
 
     > button {
       position: absolute;
@@ -30,6 +31,7 @@ export const ContentContainer = styled.div`
       width: 100%;
       height: 50rem;
       object-fit: cover;
+      background: ${theme.colors['gray-500']};
     }
 
     > div {

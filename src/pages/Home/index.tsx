@@ -8,10 +8,10 @@ import { useNaverData } from '../../hooks/naverData';
 
 import { SmallModal } from '../../components/SmallModal';
 import * as S from './styles';
+import { Loader } from '../../components/Loader';
 
 export function Home(): JSX.Element {
   const { navers, isDeleted, setIsDeleted } = useNaverData();
-
   const history = useHistory();
 
   function closeNotification() {
@@ -30,11 +30,22 @@ export function Home(): JSX.Element {
           </S.AddButton>
         </S.ContentHeader>
 
-        <S.CardContainer>
-          {navers.map(naver => (
-            <Card naverData={naver} key={naver.id} />
-          ))}
-        </S.CardContainer>
+        {navers.length === 0 ? (
+          <S.LoaderContainer>
+            <Loader
+              type="BallTriangle"
+              color="#9E9E9E"
+              width="10rem"
+              height="10rem"
+            />
+          </S.LoaderContainer>
+        ) : (
+          <S.CardContainer>
+            {navers.map(naver => (
+              <Card naverData={naver} key={naver.id} />
+            ))}
+          </S.CardContainer>
+        )}
       </S.Content>
       {isDeleted && (
         <SmallModal isOpen={isDeleted} setIsOpen={closeNotification}>

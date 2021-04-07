@@ -18,6 +18,7 @@ type NaverContextData = {
   updateNaver: (data: Naver) => Promise<void>;
   DeleteOneNaver: (id: string) => Promise<void>;
   createNewNaver: (data: Naver) => Promise<void>;
+  loading: boolean;
 };
 
 const allowedURLAvatar = /(^https?:\/\/).+(\.jpg|\.jpeg|\.png)$/i;
@@ -25,6 +26,7 @@ const allowedURLAvatar = /(^https?:\/\/).+(\.jpg|\.jpeg|\.png)$/i;
 const NaverContext = createContext<NaverContextData>({} as NaverContextData);
 
 const NaverDataProvider: React.FC = ({ children }) => {
+  const [loading, setLoading] = useState(false);
   const [isDeleted, setIsDeleted] = useState(false);
   const [navers, setNavers] = useState<Naver[]>([]);
   useEffect(() => {
@@ -45,6 +47,7 @@ const NaverDataProvider: React.FC = ({ children }) => {
   }, []);
 
   async function createNewNaver(data: Naver) {
+    setLoading(true);
     const response = await api.post('/navers', data);
 
     const createdNaver = {
@@ -55,6 +58,7 @@ const NaverDataProvider: React.FC = ({ children }) => {
     };
 
     setNavers(prevState => [...prevState, createdNaver]);
+    setLoading(false);
   }
 
   async function DeleteOneNaver(id: string): Promise<void> {
@@ -65,6 +69,7 @@ const NaverDataProvider: React.FC = ({ children }) => {
   }
 
   async function updateNaver(naver: NaverUpdate): Promise<void> {
+    setLoading(true);
     const response = await api.put<NaverUpdate>(`/navers/${naver.id}`, {
       job_role: naver.job_role,
       admission_date: naver.admission_date,
@@ -84,6 +89,7 @@ const NaverDataProvider: React.FC = ({ children }) => {
     setNavers(
       navers.map(n => (n.id === naver.id ? { ...n, ...updatedNaver } : n)),
     );
+    setLoading(false);
   }
 
   return (
@@ -95,6 +101,7 @@ const NaverDataProvider: React.FC = ({ children }) => {
         DeleteOneNaver,
         isDeleted,
         setIsDeleted,
+        loading,
       }}
     >
       {children}

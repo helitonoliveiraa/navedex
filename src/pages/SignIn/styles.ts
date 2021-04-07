@@ -33,4 +33,12 @@ export const Content = styled.main`
 export const SignInButton = styled(Button)`
   margin-top: 3.2rem;
   height: 4rem;
+
+  display: flex;
+  align-items: center;
+
+  svg {
+    margin: 0;
+    margin: 0.4rem 1rem 0 0;
+  }
 `;

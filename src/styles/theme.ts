@@ -9,7 +9,6 @@ const theme: DefaultTheme = {
     'black-1000': '#000000',
     'green-300': '#15c39a',
     'red-100': '#F03442',
-    'background-overlay': 'rgb(18, 18, 20, 0.8)',
   },
 };
 

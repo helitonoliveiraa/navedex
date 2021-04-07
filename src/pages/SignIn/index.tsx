@@ -4,10 +4,11 @@ import { FormHandles } from '@unform/core';
 import * as Yup from 'yup';
 
 import { getValidationErrors } from '../../utils/validationErros';
-import { useAuth } from '../../hooks/Auth';
+import { useAuth } from '../../hooks/naver-auth';
 
 import Logo from '../../assets/logo.png';
 import { Input } from '../../components/Input';
+import { Loader } from '../../components/Loader';
 
 import * as S from './styles';
 
@@ -20,7 +21,7 @@ export function SignIn(): JSX.Element {
   const formRef = useRef<FormHandles>(null);
 
   const history = useHistory();
-  const { signIn } = useAuth();
+  const { signIn, loading } = useAuth();
 
   async function handleLogin(data: SignInFormData) {
     try {
@@ -65,7 +66,10 @@ export function SignIn(): JSX.Element {
           placeholder="Senha"
         />
 
-        <S.SignInButton type="submit">Entrar</S.SignInButton>
+        <S.SignInButton type="submit">
+          {loading && <Loader width="2rem" height="2rem" />}
+          Entrar
+        </S.SignInButton>
       </S.Content>
     </S.Container>
   );

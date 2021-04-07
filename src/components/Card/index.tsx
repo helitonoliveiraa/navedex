@@ -13,6 +13,7 @@ import { Button } from '../Button';
 import { NaverDetail, Naver } from '../../types';
 
 import * as S from './styles';
+import { Loader } from '../Loader';
 
 const allowedURLAvatar = /(^https?:\/\/).+(\.jpg|\.jpeg|\.png)$/i;
 
@@ -21,18 +22,20 @@ type CardProps = {
 };
 
 export function Card({ naverData }: CardProps): JSX.Element {
+  const [loading, setLoading] = useState(false);
   const [isDetailNaver, setIsDetailNaver] = useState(false);
   const [isDeleteNaver, setIsDeleteNaver] = useState(false);
   const [naver, setNaver] = useState<NaverDetail>({} as NaverDetail);
 
   const history = useHistory();
-
   const { DeleteOneNaver } = useNaverData();
+
   function toggleModal() {
     setIsDetailNaver(!isDetailNaver);
   }
 
   async function showOneNaver(id: string): Promise<void> {
+    setLoading(true);
     const response = await api.get<NaverDetail>(`/navers/${id}`);
 
     const naverResponse = {
@@ -42,6 +45,7 @@ export function Card({ naverData }: CardProps): JSX.Element {
 
     setNaver(naverResponse);
     toggleModal();
+    setLoading(false);
   }
 
   function closeSmallModal() {
@@ -58,8 +62,16 @@ export function Card({ naverData }: CardProps): JSX.Element {
   }
 
   return (
-    <S.Container>
+    <S.Container loading={loading ? 'active' : ''}>
       <button type="button" onClick={() => showOneNaver(naverData.id)}>
+        {loading && (
+          <Loader
+            type="BallTriangle"
+            width="4rem"
+            height="4rem"
+            color="#424242"
+          />
+        )}
         <img
           src={naverData.hasAvatar ? naverData.url : placeHolderAvatar}
           alt={naverData.name}

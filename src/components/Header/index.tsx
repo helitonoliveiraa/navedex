@@ -1,5 +1,5 @@
 import Logo from '../../assets/logo.png';
-import { useAuth } from '../../hooks/Auth';
+import { useAuth } from '../../hooks/naver-auth';
 
 import * as S from './styles';
 

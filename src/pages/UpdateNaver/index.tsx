@@ -16,6 +16,7 @@ import { SmallModal } from '../../components/SmallModal';
 import { Naver } from '../../types';
 
 import * as S from './styles';
+import { Loader } from '../../components/Loader';
 
 type UpdateFormData = Naver;
 
@@ -27,7 +28,7 @@ export function UpdateNaver(): JSX.Element {
   const [openSuccessModal, setOpenSuccessModal] = useState(false);
   const formRef = useRef<FormHandles>(null);
 
-  const { updateNaver } = useNaverData();
+  const { updateNaver, loading } = useNaverData();
   const history = useHistory();
   const { state } = useLocation<LocationProps>();
 
@@ -109,7 +110,10 @@ export function UpdateNaver(): JSX.Element {
             <Input name="url" id="url" placeholder="URL da foto do Naver" />
           </S.InputContainer>
 
-          <S.AddNaverButton type="submit">Salvar</S.AddNaverButton>
+          <S.SaveButton type="submit">
+            {loading && <Loader />}
+            Salvar
+          </S.SaveButton>
         </Form>
 
         {openSuccessModal && (

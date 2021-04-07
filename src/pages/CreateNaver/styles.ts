@@ -55,6 +55,11 @@ export const InputContainer = styled.div`
 export const AddNaverButton = styled(Button)`
   max-width: 17.6rem;
   margin-left: auto;
+
+  svg {
+    margin: 0;
+    margin: 0.4rem 1rem 0 0;
+  }
 `;
 
 export const Notification = styled.div`

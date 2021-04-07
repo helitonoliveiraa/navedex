@@ -15,6 +15,7 @@ import { Input } from '../../components/Input';
 import { SmallModal } from '../../components/SmallModal';
 
 import * as S from './styles';
+import { Loader } from '../../components/Loader';
 
 type AddFormData = Naver;
 
@@ -22,7 +23,7 @@ export function CreateNaver(): JSX.Element {
   const [openSuccessModal, setOpenSuccessModal] = useState(false);
   const formRef = useRef<FormHandles>(null);
 
-  const { createNewNaver } = useNaverData();
+  const { createNewNaver, loading } = useNaverData();
   const history = useHistory();
 
   async function handleCreateNewNaver(
@@ -100,7 +101,10 @@ export function CreateNaver(): JSX.Element {
             <Input name="url" id="url" placeholder="URL da foto do Naver" />
           </S.InputContainer>
 
-          <S.AddNaverButton type="submit">Salvar</S.AddNaverButton>
+          <S.AddNaverButton type="submit">
+            {loading && <Loader />}
+            Salvar
+          </S.AddNaverButton>
         </Form>
 
         {openSuccessModal && (

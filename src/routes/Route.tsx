@@ -6,7 +6,7 @@ import {
   Redirect,
 } from 'react-router-dom';
 
-import { useAuth } from '../hooks/Auth';
+import { useAuth } from '../hooks/naver-auth';
 
 interface RouteProps extends ReactDOMRouteProps {
   isPrivate?: boolean;

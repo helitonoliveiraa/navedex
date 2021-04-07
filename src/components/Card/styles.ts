@@ -1,8 +1,12 @@
 import { lighten } from 'polished';
 import styled, { css } from 'styled-components';
 
-export const Container = styled.div`
-  ${({ theme }) => css`
+type ContainerProps = {
+  loading: string;
+};
+
+export const Container = styled.div<ContainerProps>`
+  ${({ theme, loading }) => css`
     max-width: 25%;
     width: 100%;
     padding: 0 1.6rem;
@@ -37,15 +41,22 @@ export const Container = styled.div`
     }
 
     > button {
+      position: relative;
       border: none;
       background: transparent;
-      opacity: 1;
+      opacity: ${loading ? 0.8 : 1};
 
-      transition: transform 0.2s;
+      transition: all 0.3s ease-in-out;
 
       &:hover {
         opacity: 0.8;
         transform: translateY(-0.8rem);
+      }
+
+      div {
+        position: absolute;
+        top: 40%;
+        right: 43%;
       }
     }
 
@@ -125,7 +136,7 @@ export const Popup = styled.div`
           border: 1px solid ${theme.colors['gray-900']};
           color: ${theme.colors['gray-900']};
 
-          transition: background 0.2s;
+          transition: all 0.3s;
 
           &:hover {
             background: ${theme.colors['gray-900']};

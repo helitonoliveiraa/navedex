@@ -10,6 +10,7 @@ export const AddButton = styled(Button)`
 
 export const Content = styled.main`
   max-width: 1240px;
+
   margin: 4rem auto 0;
   padding: 0 2rem;
   height: calc(100vh - 12.5rem);
@@ -36,6 +37,15 @@ export const CardContainer = styled.section`
   flex-shrink: 1;
   flex-basis: auto;
   flex-wrap: wrap;
+`;
+
+export const LoaderContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  height: calc(100% - 17.5rem);
+  width: 100%;
 `;
 
 export const Notification = styled.div`
