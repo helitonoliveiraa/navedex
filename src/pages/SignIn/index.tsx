@@ -1,30 +1,35 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { FormHandles } from '@unform/core';
 import * as Yup from 'yup';
 
 import { getValidationErrors } from '../../utils/validationErros';
 import { useAuth } from '../../hooks/naver-auth';
+import { useToast } from '../../hooks/toast';
 
-import Logo from '../../assets/logo.png';
 import { Input } from '../../components/Input';
 import { Loader } from '../../components/Loader';
 
+import Logo from '../../assets/logo.png';
 import * as S from './styles';
 
-interface SignInFormData {
+type SignInFormData = {
   email: string;
   password: string;
-}
+};
 
 export function SignIn(): JSX.Element {
+  const [loading, setloading] = useState(false);
+
   const formRef = useRef<FormHandles>(null);
 
   const history = useHistory();
-  const { signIn, loading } = useAuth();
+  const { addToast } = useToast();
+  const { signIn } = useAuth();
 
   async function handleLogin(data: SignInFormData) {
     try {
+      setloading(true);
       formRef.current?.setErrors({});
 
       const schema = Yup.object().shape({
@@ -47,7 +52,15 @@ export function SignIn(): JSX.Element {
         const errors = getValidationErrors(err);
 
         formRef.current?.setErrors(errors);
+        return;
       }
+
+      addToast({
+        title: 'Erro na autenticação!',
+        description: 'Ocorreu um erro ao fazer login, cheque as credenciais.',
+      });
+    } finally {
+      setloading(false);
     }
   }
 

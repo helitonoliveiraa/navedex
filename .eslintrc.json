@@ -49,6 +49,7 @@
     "no-confusing-arrow": "off",
     "operator-linebreak": "off",
     "implicit-arrow-linebreak": "off",
+    "prettier/prettier": "off",
     "no-unused-vars": "off",
     "react/prop-types": "off",
     "arrow-parens":"off",

@@ -8,22 +8,25 @@ import * as Yup from 'yup';
 
 import { getValidationErrors } from '../../utils/validationErros';
 import { useNaverData } from '../../hooks/naverData';
+import { useToast } from '../../hooks/toast';
 import { Naver } from '../../types';
 
 import { Header } from '../../components/Header';
 import { Input } from '../../components/Input';
 import { SmallModal } from '../../components/SmallModal';
+import { Loader } from '../../components/Loader';
 
 import * as S from './styles';
-import { Loader } from '../../components/Loader';
 
 type AddFormData = Naver;
 
 export function CreateNaver(): JSX.Element {
+  const [loading, setLoading] = useState(false);
   const [openSuccessModal, setOpenSuccessModal] = useState(false);
   const formRef = useRef<FormHandles>(null);
 
-  const { createNewNaver, loading } = useNaverData();
+  const { addToast } = useToast();
+  const { createNewNaver } = useNaverData();
   const history = useHistory();
 
   async function handleCreateNewNaver(
@@ -31,6 +34,7 @@ export function CreateNaver(): JSX.Element {
     { reset }: FormHelpers,
   ): Promise<void> {
     try {
+      setLoading(true);
       formRef.current?.setErrors({});
 
       const schema = Yup.object().shape({
@@ -49,12 +53,21 @@ export function CreateNaver(): JSX.Element {
       reset();
 
       setOpenSuccessModal(true);
+      setLoading(false);
     } catch (err) {
       if (err instanceof Yup.ValidationError) {
         const errors = getValidationErrors(err);
 
         formRef.current?.setErrors(errors);
+        return;
       }
+
+      addToast({
+        title: 'Erro na criação!',
+        description: 'Ocorreu um erro ao criar o naver, tente novamente.',
+      });
+    } finally {
+      setLoading(false);
     }
   }
 

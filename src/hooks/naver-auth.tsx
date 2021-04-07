@@ -1,5 +1,4 @@
-import React, {
-  // eslint-disable-next-line indent
+import {
   createContext,
   useCallback,
   useContext,
@@ -27,13 +26,15 @@ type AuthContextData = {
   user: User;
   signIn: (credentials: SignInCredenctial) => Promise<void>;
   signOut: () => void;
-  loading: boolean;
+};
+
+type AuthProviderProps = {
+  children: React.ReactNode;
 };
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
-const AuthProvider: React.FC = ({ children }) => {
-  const [loading, setLoading] = useState(false);
+function AuthProvider({ children }: AuthProviderProps): JSX.Element {
   const [data, setData] = useState<AuthState>(() => {
     const token = localStorage.getItem('@navedex:token');
     const user = localStorage.getItem('@navedex:user');
@@ -51,8 +52,6 @@ const AuthProvider: React.FC = ({ children }) => {
   });
 
   const signIn = useCallback(async ({ userEmail, password }) => {
-    setLoading(true);
-
     const response = await api.post('users/login', {
       email: userEmail,
       password,
@@ -73,8 +72,6 @@ const AuthProvider: React.FC = ({ children }) => {
       token,
       user,
     });
-
-    setLoading(false);
   }, []);
 
   const signOut = useCallback(() => {
@@ -90,13 +87,12 @@ const AuthProvider: React.FC = ({ children }) => {
         user: data.user,
         signIn,
         signOut,
-        loading,
       }}
     >
       {children}
     </AuthContext.Provider>
   );
-};
+}
 
 // Auth custom Hook
 function useAuth(): AuthContextData {

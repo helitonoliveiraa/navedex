@@ -1,10 +1,10 @@
 import { Container } from './styles';
 
-interface TooltipProp {
+type TooltipProp = {
   title: string;
   className?: string;
   children: React.ReactNode;
-}
+};
 
 export function Tooltip({
   title,

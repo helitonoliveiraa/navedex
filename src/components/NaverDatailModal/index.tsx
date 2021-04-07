@@ -6,13 +6,10 @@ import {
   formatAge,
   formatDateToPtBR,
 } from '../../utils/formatDate';
-
-import placeHolderAvatar from '../../assets/placeholder-avatar.png';
-
 import { Modal } from '../Modal';
-
 import { Naver } from '../../types';
 
+import placeHolderAvatar from '../../assets/placeholder-avatar.png';
 import * as S from './styles';
 
 type NaverDatailModalProps = {

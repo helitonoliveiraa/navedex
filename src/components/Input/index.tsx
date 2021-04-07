@@ -1,4 +1,4 @@
-import React, {
+import {
   InputHTMLAttributes,
   useRef,
   useEffect,
@@ -30,10 +30,8 @@ export function Input({
   const [isFocused, setIsFocused] = useState(false);
   const [isFilled, setIsFilled] = useState(false);
 
-  // const error = 'true';
-
   const inputRef = useRef<HTMLInputElement>(null);
-  // eslint-disable-next-line prettier/prettier
+
   const {
     fieldName, registerField, defaultValue, error,
   } = useField(name);

@@ -11,7 +11,9 @@ import * as S from './styles';
 import { Loader } from '../../components/Loader';
 
 export function Home(): JSX.Element {
-  const { navers, isDeleted, setIsDeleted } = useNaverData();
+  const {
+    navers, isDeleted, setIsDeleted, loading,
+  } = useNaverData();
   const history = useHistory();
 
   function closeNotification() {
@@ -30,7 +32,7 @@ export function Home(): JSX.Element {
           </S.AddButton>
         </S.ContentHeader>
 
-        {navers.length === 0 ? (
+        {loading ? (
           <S.LoaderContainer>
             <Loader
               type="BallTriangle"

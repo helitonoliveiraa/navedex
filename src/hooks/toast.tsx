@@ -1,5 +1,4 @@
 import React, {
-  // eslint-disable-next-line indent
   createContext,
   useCallback,
   useContext,
@@ -9,16 +8,16 @@ import { v4 as uuid } from 'uuid';
 
 import { ToastContainer } from '../components/ToastContainer';
 
-export interface ToastMessage {
+export type ToastMessage ={
   id: string;
   title: string;
   description?: string;
 }
 
-interface ToastContextData {
+type ToastContextData = {
   addToast(message: Omit<ToastMessage, 'id'>): void;
   removeToast(id: string): void;
-}
+};
 
 type ToastProviderProps = {
   children: React.ReactNode;
@@ -56,6 +55,7 @@ function ToastProvider({ children }: ToastProviderProps): JSX.Element {
   );
 }
 
+// Toast custom hook
 function useToast(): ToastContextData {
   const context = useContext(ToastContext);
 

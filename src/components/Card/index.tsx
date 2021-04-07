@@ -3,19 +3,20 @@ import { MdModeEdit, MdDelete } from 'react-icons/md';
 import { useHistory } from 'react-router-dom';
 
 import { api } from '../../services/api';
+import { validatiteAvatarURL } from '../../utils/validateAvatarURL';
 
-import placeHolderAvatar from '../../assets/placeholder-avatar.png';
 import { useNaverData } from '../../hooks/naverData';
+import { useToast } from '../../hooks/toast';
+
 import { NaverDatailModal } from '../NaverDatailModal';
 import { SmallModal } from '../SmallModal';
 import { Button } from '../Button';
+import { Loader } from '../Loader';
 
 import { NaverDetail, Naver } from '../../types';
 
+import placeHolderAvatar from '../../assets/placeholder-avatar.png';
 import * as S from './styles';
-import { Loader } from '../Loader';
-
-const allowedURLAvatar = /(^https?:\/\/).+(\.jpg|\.jpeg|\.png)$/i;
 
 type CardProps = {
   naverData: Naver;
@@ -29,25 +30,35 @@ export function Card({ naverData }: CardProps): JSX.Element {
 
   const history = useHistory();
   const { DeleteOneNaver } = useNaverData();
+  const { addToast } = useToast();
 
   function toggleModal() {
     setIsDetailNaver(!isDetailNaver);
   }
 
-  async function showOneNaver(id: string): Promise<void> {
+  async function showOneNaver(id: string) {
     try {
       setLoading(true);
       const response = await api.get<NaverDetail>(`/navers/${id}`);
 
+      if (!response.data) {
+        throw new Error();
+      }
+
       const naverResponse = {
         ...response.data,
-        hasAvatar: !!allowedURLAvatar.exec(response.data.url),
+        hasAvatar: validatiteAvatarURL(response.data.url),
       };
 
       setNaver(naverResponse);
       toggleModal();
       setLoading(false);
     } catch {
+      addToast({
+        title: 'Erro!',
+        description: 'Ocorreu um erro ao buscar os datalhes do naver.',
+      });
+    } finally {
       setLoading(false);
     }
   }
