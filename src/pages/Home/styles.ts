@@ -13,7 +13,7 @@ export const AddButton = styled(Button)`
 export const Content = styled.main`
   max-width: 1240px;
   margin: 4rem auto 0;
-  padding: 0 2rem;
+  padding: 0 4rem;
   height: calc(100vh - 12.5rem);
 `;
 

@@ -1,6 +1,8 @@
 import { lighten } from 'polished';
 import styled, { css } from 'styled-components';
 
+import { Tooltip } from '../Tooltip';
+
 type ContainerProps = {
   loading: string;
 };
@@ -77,7 +79,7 @@ export const Container = styled.div<ContainerProps>`
     div {
       display: flex;
       align-items: center;
-      margin-top: 1rem;
+      margin-top: 0.6rem;
 
       button {
         border: none;
@@ -147,3 +149,5 @@ export const Popup = styled.div`
     }
   `}
 `;
+
+export const InfoTooltip = styled(Tooltip)``;

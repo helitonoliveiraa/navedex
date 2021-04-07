@@ -86,11 +86,15 @@ export function Card({ naverData }: CardProps): JSX.Element {
 
       <div>
         <button type="button" onClick={() => setIsDeleteNaver(true)}>
-          <MdDelete />
+          <S.InfoTooltip title="Deletar naver">
+            <MdDelete />
+          </S.InfoTooltip>
         </button>
 
         <button type="button" onClick={() => handleUpdateNaver(naverData)}>
-          <MdModeEdit />
+          <S.InfoTooltip title="Editar naver">
+            <MdModeEdit />
+          </S.InfoTooltip>
         </button>
       </div>
 

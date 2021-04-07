@@ -1,6 +1,8 @@
 import { lighten } from 'polished';
 import styled, { css } from 'styled-components';
 
+import { Tooltip } from '../Tooltip';
+
 export const ContentContainer = styled.div`
   ${({ theme }) => css`
     display: flex;
@@ -97,3 +99,5 @@ export const ButtonsContainer = styled.footer`
     }
   `}
 `;
+
+export const InfoTooltip = styled(Tooltip)``;

@@ -4,7 +4,7 @@ import styled, { css } from 'styled-components';
 export const Container = styled.div`
   ${({ theme }) => css`
     position: relative;
-    cursor: help;
+    cursor: pointer;
 
     &::after {
       content: attr(data-title);
