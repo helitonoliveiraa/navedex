@@ -2,6 +2,7 @@ import styled, { css } from 'styled-components';
 import { Form } from '@unform/web';
 
 import { Button } from '../../components/Button';
+import { APPEAR_FROM_TOP, FADE } from '../../constants/animations';
 
 export const Container = styled(Form)`
   height: 100vh;
@@ -11,6 +12,8 @@ export const Container = styled(Form)`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  animation: ${FADE} 1s ease-in-out;
 `;
 
 export const Content = styled.main`
@@ -26,6 +29,8 @@ export const Content = styled.main`
       max-width: 23.5rem;
       margin-bottom: 4rem;
       align-self: center;
+
+      animation: ${APPEAR_FROM_TOP} 1s ease-in-out;
     }
   `}
 `;

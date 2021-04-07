@@ -2,7 +2,7 @@ import { useRef, useState } from 'react';
 import { Form } from '@unform/web';
 import { FormHandles } from '@unform/core';
 import { MdKeyboardArrowLeft } from 'react-icons/md';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory, useLocation, Link } from 'react-router-dom';
 import { MdClose } from 'react-icons/md';
 import * as Yup from 'yup';
 
@@ -78,9 +78,9 @@ export function UpdateNaver(): JSX.Element {
           onSubmit={handleUpdateNaver}
         >
           <div>
-            <button type="button" onClick={() => history.goBack()}>
+            <Link to="/home">
               <MdKeyboardArrowLeft />
-            </button>
+            </Link>
             <strong>Editar Naver</strong>
           </div>
 

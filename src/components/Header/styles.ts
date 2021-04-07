@@ -1,6 +1,8 @@
 import { lighten } from 'polished';
 import styled, { css } from 'styled-components';
 
+import { APPEAR_FROM_LEFT, FADE } from '../../constants/animations';
+
 export const Container = styled.header`
   ${({ theme }) => css`
     height: 8.5rem;
@@ -17,11 +19,15 @@ export const Container = styled.header`
 
       img {
         max-width: 14.5rem;
+
+        animation: ${APPEAR_FROM_LEFT} 1s ease-in-out;
       }
 
       button {
         border: none;
         background: transparent;
+
+        animation: ${FADE} 1s ease-in-out;
 
         font-size: 1.4rem;
         font-weight: 600;

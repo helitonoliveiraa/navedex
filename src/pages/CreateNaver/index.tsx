@@ -2,7 +2,7 @@ import { useRef, useState } from 'react';
 import { Form } from '@unform/web';
 import { FormHandles, FormHelpers } from '@unform/core';
 import { MdKeyboardArrowLeft } from 'react-icons/md';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { MdClose } from 'react-icons/md';
 import * as Yup from 'yup';
 
@@ -69,9 +69,9 @@ export function CreateNaver(): JSX.Element {
       <S.Container>
         <Form ref={formRef} onSubmit={handleCreateNewNaver}>
           <div>
-            <button type="button" onClick={() => history.goBack()}>
+            <Link to="/home">
               <MdKeyboardArrowLeft />
-            </button>
+            </Link>
             <strong>Adicionar Naver</strong>
           </div>
 

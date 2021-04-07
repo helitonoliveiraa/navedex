@@ -35,17 +35,21 @@ export function Card({ naverData }: CardProps): JSX.Element {
   }
 
   async function showOneNaver(id: string): Promise<void> {
-    setLoading(true);
-    const response = await api.get<NaverDetail>(`/navers/${id}`);
+    try {
+      setLoading(true);
+      const response = await api.get<NaverDetail>(`/navers/${id}`);
 
-    const naverResponse = {
-      ...response.data,
-      hasAvatar: !!allowedURLAvatar.exec(response.data.url),
-    };
+      const naverResponse = {
+        ...response.data,
+        hasAvatar: !!allowedURLAvatar.exec(response.data.url),
+      };
 
-    setNaver(naverResponse);
-    toggleModal();
-    setLoading(false);
+      setNaver(naverResponse);
+      toggleModal();
+      setLoading(false);
+    } catch {
+      setLoading(false);
+    }
   }
 
   function closeSmallModal() {

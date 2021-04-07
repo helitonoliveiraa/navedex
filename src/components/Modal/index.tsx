@@ -13,7 +13,6 @@ export function Modal({
   children,
 }: ModalProps): JSX.Element {
   const [modalStatus, setModalStatus] = useState(isOpen);
-
   useEffect(() => {
     if (modalStatus !== isOpen) {
       setModalStatus(isOpen);
@@ -26,6 +25,7 @@ export function Modal({
       onRequestClose={setIsOpen}
       isOpen={modalStatus}
       ariaHideApp={false}
+      closeTimeoutMS={2000}
       style={{
         content: {
           top: '50%',
