@@ -47,6 +47,8 @@
     "import/no-duplicates": "off",
     "@typescript-eslint/ban-types": "off",
     "no-confusing-arrow": "off",
+    "operator-linebreak": "off",
+    "implicit-arrow-linebreak": "off",
     "no-unused-vars": "off",
     "react/prop-types": "off",
     "arrow-parens":"off",
