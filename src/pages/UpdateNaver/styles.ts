@@ -2,6 +2,7 @@ import { lighten } from 'polished';
 import styled, { css } from 'styled-components';
 
 import { Button } from '../../components/Button';
+import { APPEAR_FROM_RIGHT, FADE } from '../../constants/animations';
 
 export const Container = styled.div`
   ${({ theme }) => css`
@@ -15,15 +16,16 @@ export const Container = styled.div`
         align-items: center;
         margin-bottom: 3.2rem;
 
-        button {
-          font-size: 0;
-          border: none;
-          background: transparent;
+        a {
+          display: flex;
+          align-items: center;
 
           svg {
-            width: 3.6rem;
-            height: 3.6rem;
+            width: 4rem;
+            height: 4rem;
             color: ${theme.colors['black-1000']};
+
+            animation: ${FADE} 1s ease-in-out;
             transition: color 0.2s;
           }
 
@@ -39,6 +41,8 @@ export const Container = styled.div`
           margin-left: 1.6rem;
           color: ${theme.colors['gray-900']};
           text-shadow: 0 0.4rem 0.4rem rgba(0, 0, 0, 0.25);
+
+          animation: ${APPEAR_FROM_RIGHT} 1s ease-in-out;
         }
       }
     }
@@ -50,11 +54,20 @@ export const InputContainer = styled.div`
   align-items: center;
   justify-content: space-between;
   gap: 3.2rem;
+
+  animation: ${FADE} 1s ease-in-out;
 `;
 
-export const AddNaverButton = styled(Button)`
+export const SaveButton = styled(Button)`
   max-width: 17.6rem;
   margin-left: auto;
+
+  animation: ${FADE} 1s ease-in-out;
+
+  svg {
+    margin: 0;
+    margin: 0.4rem 1rem 0 0;
+  }
 `;
 
 export const Notification = styled.div`

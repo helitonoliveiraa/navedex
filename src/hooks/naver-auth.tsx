@@ -1,5 +1,4 @@
-import React, {
-  // eslint-disable-next-line indent
+import {
   createContext,
   useCallback,
   useContext,
@@ -29,9 +28,13 @@ type AuthContextData = {
   signOut: () => void;
 };
 
+type AuthProviderProps = {
+  children: React.ReactNode;
+};
+
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
-const AuthProvider: React.FC = ({ children }) => {
+function AuthProvider({ children }: AuthProviderProps): JSX.Element {
   const [data, setData] = useState<AuthState>(() => {
     const token = localStorage.getItem('@navedex:token');
     const user = localStorage.getItem('@navedex:user');
@@ -89,7 +92,7 @@ const AuthProvider: React.FC = ({ children }) => {
       {children}
     </AuthContext.Provider>
   );
-};
+}
 
 // Auth custom Hook
 function useAuth(): AuthContextData {

@@ -2,26 +2,30 @@ import { useRef, useState } from 'react';
 import { Form } from '@unform/web';
 import { FormHandles, FormHelpers } from '@unform/core';
 import { MdKeyboardArrowLeft } from 'react-icons/md';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { MdClose } from 'react-icons/md';
 import * as Yup from 'yup';
 
 import { getValidationErrors } from '../../utils/validationErros';
 import { useNaverData } from '../../hooks/naverData';
+import { useToast } from '../../hooks/toast';
 import { Naver } from '../../types';
 
 import { Header } from '../../components/Header';
 import { Input } from '../../components/Input';
 import { SmallModal } from '../../components/SmallModal';
+import { Loader } from '../../components/Loader';
 
 import * as S from './styles';
 
 type AddFormData = Naver;
 
 export function CreateNaver(): JSX.Element {
+  const [loading, setLoading] = useState(false);
   const [openSuccessModal, setOpenSuccessModal] = useState(false);
   const formRef = useRef<FormHandles>(null);
 
+  const { addToast } = useToast();
   const { createNewNaver } = useNaverData();
   const history = useHistory();
 
@@ -30,6 +34,7 @@ export function CreateNaver(): JSX.Element {
     { reset }: FormHelpers,
   ): Promise<void> {
     try {
+      setLoading(true);
       formRef.current?.setErrors({});
 
       const schema = Yup.object().shape({
@@ -48,12 +53,21 @@ export function CreateNaver(): JSX.Element {
       reset();
 
       setOpenSuccessModal(true);
+      setLoading(false);
     } catch (err) {
       if (err instanceof Yup.ValidationError) {
         const errors = getValidationErrors(err);
 
         formRef.current?.setErrors(errors);
+        return;
       }
+
+      addToast({
+        title: 'Erro na criação!',
+        description: 'Ocorreu um erro ao criar o naver, tente novamente.',
+      });
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -68,9 +82,9 @@ export function CreateNaver(): JSX.Element {
       <S.Container>
         <Form ref={formRef} onSubmit={handleCreateNewNaver}>
           <div>
-            <button type="button" onClick={() => history.goBack()}>
+            <Link to="/home">
               <MdKeyboardArrowLeft />
-            </button>
+            </Link>
             <strong>Adicionar Naver</strong>
           </div>
 
@@ -100,7 +114,10 @@ export function CreateNaver(): JSX.Element {
             <Input name="url" id="url" placeholder="URL da foto do Naver" />
           </S.InputContainer>
 
-          <S.AddNaverButton type="submit">Salvar</S.AddNaverButton>
+          <S.AddNaverButton type="submit">
+            {loading && <Loader />}
+            Salvar
+          </S.AddNaverButton>
         </Form>
 
         {openSuccessModal && (

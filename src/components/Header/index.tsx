@@ -1,6 +1,7 @@
-import Logo from '../../assets/logo.png';
-import { useAuth } from '../../hooks/Auth';
+import { Link } from 'react-router-dom';
+import { useAuth } from '../../hooks/naver-auth';
 
+import Logo from '../../assets/logo.png';
 import * as S from './styles';
 
 export function Header(): JSX.Element {
@@ -9,7 +10,9 @@ export function Header(): JSX.Element {
   return (
     <S.Container>
       <div>
-        <img src={Logo} alt="Nave.rs" />
+        <Link to="/home">
+          <img src={Logo} alt="Nave.rs" />
+        </Link>
         <button type="button" onClick={signOut}>
           Sair
         </button>

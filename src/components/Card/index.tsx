@@ -3,45 +3,64 @@ import { MdModeEdit, MdDelete } from 'react-icons/md';
 import { useHistory } from 'react-router-dom';
 
 import { api } from '../../services/api';
+import { validatiteAvatarURL } from '../../utils/validateAvatarURL';
 
-import placeHolderAvatar from '../../assets/placeholder-avatar.png';
 import { useNaverData } from '../../hooks/naverData';
+import { useToast } from '../../hooks/toast';
+
 import { NaverDatailModal } from '../NaverDatailModal';
 import { SmallModal } from '../SmallModal';
 import { Button } from '../Button';
+import { Loader } from '../Loader';
 
 import { NaverDetail, Naver } from '../../types';
 
+import placeHolderAvatar from '../../assets/placeholder-avatar.png';
 import * as S from './styles';
-
-const allowedURLAvatar = /(^https?:\/\/).+(\.jpg|\.jpeg|\.png)$/i;
 
 type CardProps = {
   naverData: Naver;
 };
 
 export function Card({ naverData }: CardProps): JSX.Element {
+  const [loading, setLoading] = useState(false);
   const [isDetailNaver, setIsDetailNaver] = useState(false);
   const [isDeleteNaver, setIsDeleteNaver] = useState(false);
   const [naver, setNaver] = useState<NaverDetail>({} as NaverDetail);
 
   const history = useHistory();
-
   const { DeleteOneNaver } = useNaverData();
+  const { addToast } = useToast();
+
   function toggleModal() {
     setIsDetailNaver(!isDetailNaver);
   }
 
-  async function showOneNaver(id: string): Promise<void> {
-    const response = await api.get<NaverDetail>(`/navers/${id}`);
+  async function showOneNaver(id: string) {
+    try {
+      setLoading(true);
+      const response = await api.get<NaverDetail>(`/navers/${id}`);
 
-    const naverResponse = {
-      ...response.data,
-      hasAvatar: !!allowedURLAvatar.exec(response.data.url),
-    };
+      if (!response.data) {
+        throw new Error();
+      }
 
-    setNaver(naverResponse);
-    toggleModal();
+      const naverResponse = {
+        ...response.data,
+        hasAvatar: validatiteAvatarURL(response.data.url),
+      };
+
+      setNaver(naverResponse);
+      toggleModal();
+      setLoading(false);
+    } catch {
+      addToast({
+        title: 'Erro!',
+        description: 'Ocorreu um erro ao buscar os datalhes do naver.',
+      });
+    } finally {
+      setLoading(false);
+    }
   }
 
   function closeSmallModal() {
@@ -58,8 +77,16 @@ export function Card({ naverData }: CardProps): JSX.Element {
   }
 
   return (
-    <S.Container>
+    <S.Container loading={loading ? 'active' : ''}>
       <button type="button" onClick={() => showOneNaver(naverData.id)}>
+        {loading && (
+          <Loader
+            type="BallTriangle"
+            width="4rem"
+            height="4rem"
+            color="#424242"
+          />
+        )}
         <img
           src={naverData.hasAvatar ? naverData.url : placeHolderAvatar}
           alt={naverData.name}
@@ -70,11 +97,15 @@ export function Card({ naverData }: CardProps): JSX.Element {
 
       <div>
         <button type="button" onClick={() => setIsDeleteNaver(true)}>
-          <MdDelete />
+          <S.InfoTooltip title="Deletar naver">
+            <MdDelete />
+          </S.InfoTooltip>
         </button>
 
         <button type="button" onClick={() => handleUpdateNaver(naverData)}>
-          <MdModeEdit />
+          <S.InfoTooltip title="Editar naver">
+            <MdModeEdit />
+          </S.InfoTooltip>
         </button>
       </div>
 

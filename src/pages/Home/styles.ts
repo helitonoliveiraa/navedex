@@ -2,6 +2,8 @@ import { lighten } from 'polished';
 import styled, { css } from 'styled-components';
 import { Button } from '../../components/Button';
 
+import { APPEAR_FROM_BOTTOM } from '../../constants/animations';
+
 export const Container = styled.div``;
 
 export const AddButton = styled(Button)`
@@ -11,7 +13,7 @@ export const AddButton = styled(Button)`
 export const Content = styled.main`
   max-width: 1240px;
   margin: 4rem auto 0;
-  padding: 0 2rem;
+  padding: 0 4rem;
   height: calc(100vh - 12.5rem);
 `;
 
@@ -20,6 +22,8 @@ export const ContentHeader = styled.section`
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    animation: ${APPEAR_FROM_BOTTOM} 1s ease-in-out;
 
     strong {
       font-size: 4rem;
@@ -36,6 +40,15 @@ export const CardContainer = styled.section`
   flex-shrink: 1;
   flex-basis: auto;
   flex-wrap: wrap;
+`;
+
+export const LoaderContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  height: calc(100% - 17.5rem);
+  width: 100%;
 `;
 
 export const Notification = styled.div`

@@ -2,12 +2,13 @@ import { useRef, useState } from 'react';
 import { Form } from '@unform/web';
 import { FormHandles } from '@unform/core';
 import { MdKeyboardArrowLeft } from 'react-icons/md';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory, useLocation, Link } from 'react-router-dom';
 import { MdClose } from 'react-icons/md';
 import * as Yup from 'yup';
 
 import { getValidationErrors } from '../../utils/validationErros';
 import { useNaverData } from '../../hooks/naverData';
+import { useToast } from '../../hooks/toast';
 
 import { Header } from '../../components/Header';
 import { Input } from '../../components/Input';
@@ -16,6 +17,7 @@ import { SmallModal } from '../../components/SmallModal';
 import { Naver } from '../../types';
 
 import * as S from './styles';
+import { Loader } from '../../components/Loader';
 
 type UpdateFormData = Naver;
 
@@ -24,17 +26,20 @@ type LocationProps = {
 };
 
 export function UpdateNaver(): JSX.Element {
+  const [loading, setLoading] = useState(false);
   const [openSuccessModal, setOpenSuccessModal] = useState(false);
   const formRef = useRef<FormHandles>(null);
 
-  const { updateNaver } = useNaverData();
   const history = useHistory();
   const { state } = useLocation<LocationProps>();
+  const { updateNaver } = useNaverData();
+  const { addToast } = useToast();
 
   const { updateNaverData } = state;
 
   async function handleUpdateNaver(data: UpdateFormData): Promise<void> {
     try {
+      setLoading(true);
       formRef.current?.setErrors({});
 
       const schema = Yup.object().shape({
@@ -54,12 +59,21 @@ export function UpdateNaver(): JSX.Element {
       });
 
       setOpenSuccessModal(true);
+      setLoading(false);
     } catch (err) {
       if (err instanceof Yup.ValidationError) {
         const errors = getValidationErrors(err);
 
         formRef.current?.setErrors(errors);
+        return;
       }
+
+      addToast({
+        title: 'Erro na atualização!',
+        description: 'Ocorreu um erro ao atualizar o naver, tente novamente.',
+      });
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -77,9 +91,9 @@ export function UpdateNaver(): JSX.Element {
           onSubmit={handleUpdateNaver}
         >
           <div>
-            <button type="button" onClick={() => history.goBack()}>
+            <Link to="/home">
               <MdKeyboardArrowLeft />
-            </button>
+            </Link>
             <strong>Editar Naver</strong>
           </div>
 
@@ -109,7 +123,10 @@ export function UpdateNaver(): JSX.Element {
             <Input name="url" id="url" placeholder="URL da foto do Naver" />
           </S.InputContainer>
 
-          <S.AddNaverButton type="submit">Salvar</S.AddNaverButton>
+          <S.SaveButton type="submit">
+            {loading && <Loader />}
+            Salvar
+          </S.SaveButton>
         </Form>
 
         {openSuccessModal && (

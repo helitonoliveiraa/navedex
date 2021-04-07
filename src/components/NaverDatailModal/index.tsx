@@ -6,13 +6,10 @@ import {
   formatAge,
   formatDateToPtBR,
 } from '../../utils/formatDate';
-
-import placeHolderAvatar from '../../assets/placeholder-avatar.png';
-
 import { Modal } from '../Modal';
-
 import { Naver } from '../../types';
 
+import placeHolderAvatar from '../../assets/placeholder-avatar.png';
 import * as S from './styles';
 
 type NaverDatailModalProps = {
@@ -77,11 +74,15 @@ export function NaverDatailModal({
 
           <S.ButtonsContainer>
             <button type="button" onClick={deleteNaver}>
-              <MdDelete />
+              <S.InfoTooltip title="Deletar naver">
+                <MdDelete />
+              </S.InfoTooltip>
             </button>
 
             <button type="button" onClick={() => handleUpdateNaver(naver)}>
-              <MdModeEdit />
+              <S.InfoTooltip title="Editar naver">
+                <MdModeEdit />
+              </S.InfoTooltip>
             </button>
           </S.ButtonsContainer>
         </div>

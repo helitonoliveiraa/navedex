@@ -10,7 +10,6 @@ declare module 'styled-components' {
       'black-1000': string;
       'green-300': string;
       'red-100': string;
-      'background-overlay': string;
     };
   }
 }

@@ -1,4 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
+import { FADE } from '../constants/animations';
 
 export default createGlobalStyle`
   * {
@@ -42,6 +43,14 @@ export default createGlobalStyle`
 
   button {
     cursor: pointer;
+  }
+
+  .ReactModal__Overlay--after-open {
+    animation: ${FADE} 1s ease-in-out;
+  }
+
+  .ReactModal__Overlay--before-close {
+    animation: ${FADE} 1s ease-in-out;
   }
 }
 `;
