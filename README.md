@@ -1,3 +1,7 @@
+<h1 align="center">
+  Navedex
+</h1>
+
 <p align="center">
   <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/helitonoliveiraa/navedex.svg?color=%23212121">
 
@@ -85,6 +89,7 @@ funcionalidades adicional
 
 ⚠ você usar tanto o [yarn](https://yarnpkg.com/) quanto o [npm]() para instalar as dependências.
 
+
 <br />
 
 Clone o projeto para sua maquina local:
@@ -97,6 +102,8 @@ $ cd navedex
 
 # Instale todas as dependências do projeto
 $ yarn / npm install
+
+# crie um arquivo .env na raiz do projeto e popule a variável ambiente `REACT_APP_API_URL` com a URL da API.
 
 # roda o projeto
 $ yarn / npm run
