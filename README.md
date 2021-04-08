@@ -18,7 +18,7 @@
   </a>
 
   <a href="https://github.com/helitonoliveiraa/navedex/stargazers" >
-    <img alt="Stargazers" src="https://img.shields.io/github/stars/helitonoliveiraa/navedex?style=social">
+    <img alt="Stargazers" src="https://img.shields.io/github/stars/helitonoliveiraa/navedex?style=social" />
   </a>
 </p>
 
@@ -34,6 +34,13 @@
   <img src="https://res.cloudinary.com/dzn5ixmhq/image/upload/v1617888720/navedex/Screenshot_20210408_102419_ynnfsm.png" alt="Navedex">
 
   <img src="https://res.cloudinary.com/dzn5ixmhq/image/upload/v1617888712/navedex/Screenshot_20210408_102312_dj0een.png" alt="Navedex">
+</p>
+
+<p align="center">
+  Demo<br />
+  <a href="https://youtu.be/nCj-6ZB62yg">
+    <img src="https://res.cloudinary.com/dzn5ixmhq/image/upload/v1615903869/png-transparent-youtube-computer-icons-logo-youtube-angle-social-media-share-icon_1_kz6zg8.png" width="50" >
+  </a>
 </p>
 
 # :memo: Sobre
