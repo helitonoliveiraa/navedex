@@ -8,6 +8,15 @@ export const Container = styled.div``;
 
 export const AddButton = styled(Button)`
   max-width: 17.6rem;
+
+  @media (max-width: 420px) {
+    max-width: 14.6rem;
+  }
+
+  @media (max-width: 300px) {
+    max-width: 11.6rem;
+    font-size: 1rem;
+  }
 `;
 
 export const Content = styled.main`
@@ -29,6 +38,14 @@ export const ContentHeader = styled.section`
       font-size: 4rem;
       font-weight: 600;
       color: ${theme.colors['gray-900']};
+
+      @media (max-width: 500px) {
+        font-size: 3rem;
+      }
+
+      @media (max-width: 420px) {
+        font-size: 2.5rem;
+      }
     }
   `}
 `;
@@ -40,6 +57,12 @@ export const CardContainer = styled.section`
   flex-shrink: 1;
   flex-basis: auto;
   flex-wrap: wrap;
+
+  @media (max-width: 970px) {
+    & {
+      margin: 3.2rem -0.9rem 0;
+    }
+  }
 `;
 
 export const LoaderContainer = styled.div`

@@ -18,6 +18,12 @@ export default createGlobalStyle`
     }
   }
 
+  @media (max-width: 1024px) and (height: 1366px) {
+    & {
+      font-size: 62.5%; /* 1rem to equal 10px */
+    }
+  }
+
   @media (max-width: 720px) {
     & {
       font-size: 50%; /* 0.8rem to equal 8px */

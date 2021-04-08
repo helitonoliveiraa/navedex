@@ -29,7 +29,7 @@ export const ContentContainer = styled.div`
     }
 
     img {
-      max-width: 50rem;
+      max-width: 50%;
       width: 100%;
       height: 50rem;
       object-fit: cover;
@@ -43,6 +43,15 @@ export const ContentContainer = styled.div`
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+    }
+
+    @media (max-width: 700px) {
+      flex-direction: column;
+
+      img {
+        max-width: 100%;
+        height: 30rem;
+      }
     }
   `}
 `;

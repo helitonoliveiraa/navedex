@@ -73,7 +73,7 @@ export function CreateNaver(): JSX.Element {
 
   function closeSuccessModal() {
     setOpenSuccessModal(false);
-    history.push('/home');
+    // history.push('/home');
   }
 
   return (
@@ -88,13 +88,13 @@ export function CreateNaver(): JSX.Element {
             <strong>Adicionar Naver</strong>
           </div>
 
-          <S.InputContainer>
+          <S.InputGroup>
             <Input name="name" id="name" placeholder="Nome" />
 
             <Input name="job_role" id="job_role" placeholder="Cargo" />
-          </S.InputContainer>
+          </S.InputGroup>
 
-          <S.InputContainer>
+          <S.InputGroup>
             <Input name="birthdate" id="birthdate" placeholder="Idade" />
 
             <Input
@@ -102,9 +102,9 @@ export function CreateNaver(): JSX.Element {
               id="admission_date"
               placeholder="Tempo de empresa"
             />
-          </S.InputContainer>
+          </S.InputGroup>
 
-          <S.InputContainer>
+          <S.InputGroup>
             <Input
               name="project"
               id="project"
@@ -112,7 +112,7 @@ export function CreateNaver(): JSX.Element {
             />
 
             <Input name="url" id="url" placeholder="URL da foto do Naver" />
-          </S.InputContainer>
+          </S.InputGroup>
 
           <S.AddNaverButton type="submit">
             {loading && <Loader />}

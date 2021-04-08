@@ -1,10 +1,4 @@
-import {
-  // eslint-disable-next-line indent
-  createContext,
-  useContext,
-  useEffect,
-  useState,
-} from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 
 import { api } from '../services/api';
 import { formatDateToPtBR } from '../utils/formatDate';
@@ -95,14 +89,7 @@ function NaverDataProvider({ children }: NaverDataProviderProps): JSX.Element {
   }
 
   async function updateNaver(naver: NaverUpdate) {
-    const {
-      job_role,
-      admission_date,
-      birthdate,
-      name,
-      project,
-      url,
-    } = naver;
+    const { job_role, admission_date, birthdate, name, project, url } = naver;
 
     const response = await api.put<NaverUpdate>(`/navers/${naver.id}`, {
       job_role,

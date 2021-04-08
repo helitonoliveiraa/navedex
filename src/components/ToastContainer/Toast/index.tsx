@@ -8,7 +8,7 @@ import { Container } from './styles';
 type ToastProps = {
   message: ToastMessage;
   style: object;
-}
+};
 
 export function Toast({ message, style }: ToastProps): JSX.Element {
   const { removeToast } = useToast();

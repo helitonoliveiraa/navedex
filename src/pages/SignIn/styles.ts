@@ -20,7 +20,7 @@ export const Content = styled.main`
   ${({ theme }) => css`
     display: flex;
     flex-direction: column;
-    max-width: 448px;
+    max-width: 44.8rem;
     width: 100%;
     padding: 4rem 3.2rem;
     border: 1px solid ${theme.colors['gray-900']};
@@ -31,6 +31,14 @@ export const Content = styled.main`
       align-self: center;
 
       animation: ${APPEAR_FROM_TOP} 1s ease-in-out;
+
+      @media (max-width: 540px) {
+        max-width: 20rem;
+      }
+
+      @media (max-width: 340px) {
+        max-width: 16rem;
+      }
     }
   `}
 `;
