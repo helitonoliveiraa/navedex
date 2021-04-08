@@ -29,7 +29,7 @@
   <a href="#arrowdown-como-baixar-o-projeto">Baixe o projeto</a>
 </p>
 <p align="center">
-  <img src="https://res.cloudinary.com/dzn5ixmhq/image/upload/v1617888723/navedex/Screenshot_20210408_102142_xdygeg.png" alt="Navedex"> -->
+  <img src="https://res.cloudinary.com/dzn5ixmhq/image/upload/v1617888723/navedex/Screenshot_20210408_102142_xdygeg.png" alt="Navedex">
 
   <img src="https://res.cloudinary.com/dzn5ixmhq/image/upload/v1617888720/navedex/Screenshot_20210408_102419_ynnfsm.png" alt="Navedex">
 
