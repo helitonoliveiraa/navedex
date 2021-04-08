@@ -77,37 +77,40 @@ export function Card({ naverData }: CardProps): JSX.Element {
   }
 
   return (
-    <S.Container loading={loading ? 'active' : ''}>
-      <button type="button" onClick={() => showOneNaver(naverData.id)}>
-        {loading && (
-          <Loader
-            type="BallTriangle"
-            width="4rem"
-            height="4rem"
-            color="#424242"
+    <>
+      <S.Container loading={loading ? 'active' : ''}>
+        <button type="button" onClick={() => showOneNaver(naverData.id)}>
+          {loading && (
+            <Loader
+              type="BallTriangle"
+              width="4rem"
+              height="4rem"
+              color="#424242"
+            />
+          )}
+
+          <img
+            src={naverData.hasAvatar ? naverData.url : placeHolderAvatar}
+            alt={naverData.name}
           />
-        )}
-        <img
-          src={naverData.hasAvatar ? naverData.url : placeHolderAvatar}
-          alt={naverData.name}
-        />
-        <strong>{naverData.name}</strong>
-        <span>{naverData.job_role}</span>
-      </button>
-
-      <div>
-        <button type="button" onClick={() => setIsDeleteNaver(true)}>
-          <S.InfoTooltip title="Deletar naver">
-            <MdDelete />
-          </S.InfoTooltip>
+          <strong>{naverData.name}</strong>
+          <span>{naverData.job_role}</span>
         </button>
 
-        <button type="button" onClick={() => handleUpdateNaver(naverData)}>
-          <S.InfoTooltip title="Editar naver">
-            <MdModeEdit />
-          </S.InfoTooltip>
-        </button>
-      </div>
+        <S.ButtonsGroup>
+          <button type="button" onClick={() => setIsDeleteNaver(true)}>
+            <S.InfoTooltip title="Deletar naver">
+              <MdDelete />
+            </S.InfoTooltip>
+          </button>
+
+          <button type="button" onClick={() => handleUpdateNaver(naverData)}>
+            <S.InfoTooltip title="Editar naver">
+              <MdModeEdit />
+            </S.InfoTooltip>
+          </button>
+        </S.ButtonsGroup>
+      </S.Container>
 
       {isDeleteNaver && (
         <SmallModal isOpen={isDeleteNaver} setIsOpen={closeSmallModal}>
@@ -135,6 +138,6 @@ export function Card({ naverData }: CardProps): JSX.Element {
           setIsDeleteNaver={setIsDeleteNaver}
         />
       )}
-    </S.Container>
+    </>
   );
 }

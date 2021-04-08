@@ -32,9 +32,7 @@ export function Input({
 
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const {
-    fieldName, registerField, defaultValue, error,
-  } = useField(name);
+  const { fieldName, registerField, defaultValue, error } = useField(name);
 
   useEffect(() => {
     registerField({

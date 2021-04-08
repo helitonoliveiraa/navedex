@@ -28,18 +28,10 @@ export const Container = styled.div<ContainerProps>`
       }
     }
 
-    @media (max-width: 440px) {
+    @media (max-width: 500px) {
       & {
         max-width: 100%;
       }
-    }
-
-    img {
-      flex: 1;
-      max-width: 100%;
-      height: 28rem;
-      object-fit: cover;
-      background-color: ${theme.colors['gray-500']};
     }
 
     > button {
@@ -55,9 +47,18 @@ export const Container = styled.div<ContainerProps>`
         transform: translateY(-0.8rem);
       }
 
+      img {
+        flex: 1;
+        width: 100%;
+        height: 28rem;
+        object-fit: cover;
+        background-color: ${theme.colors['gray-500']};
+      }
+
+      // Loading style
       div {
         position: absolute;
-        top: 40%;
+        top: 35%;
         right: 43%;
       }
     }
@@ -75,30 +76,32 @@ export const Container = styled.div<ContainerProps>`
       line-height: 2.4rem;
       color: ${theme.colors['gray-900']};
     }
+  `}
+`;
 
-    div {
-      display: flex;
-      align-items: center;
-      margin-top: 0.6rem;
+export const ButtonsGroup = styled.div`
+  ${({ theme }) => css`
+    display: flex;
+    align-items: center;
+    margin-top: 0.6rem;
 
-      button {
-        border: none;
-        background: transparent;
-        padding: 0.4rem;
+    button {
+      border: none;
+      background: transparent;
+      padding: 0.4rem;
 
-        & + button {
-          margin-left: 0.8rem;
-        }
+      & + button {
+        margin-left: 0.8rem;
+      }
 
-        svg {
-          width: 2.4rem;
-          height: 2.4rem;
-          color: ${theme.colors['gray-900']};
-        }
+      svg {
+        width: 2.4rem;
+        height: 2.4rem;
+        color: ${theme.colors['gray-900']};
+      }
 
-        &:hover svg {
-          color: ${lighten(0.2, theme.colors['gray-900'])};
-        }
+      &:hover svg {
+        color: ${lighten(0.2, theme.colors['gray-900'])};
       }
     }
   `}

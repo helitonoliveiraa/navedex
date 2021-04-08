@@ -75,10 +75,16 @@ export const Error = styled(Tooltip)`
     height: 2rem;
     margin-left: 1.6rem;
     color: ${theme.colors['red-100']};
+    cursor: help;
 
     &::after {
       background: ${theme.colors['red-100']};
       color: ${theme.colors.white};
+
+      @media (max-width: 600px) {
+        left: 100%;
+        transform: translateX(-100%);
+      }
     }
 
     &::before {

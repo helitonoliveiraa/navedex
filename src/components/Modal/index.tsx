@@ -33,6 +33,8 @@ export function Modal({
           right: 'auto',
           bottom: 'auto',
           marginRight: '-50%',
+          // marginRight: '4rem',
+          // marginLeft: '4rem',
           transform: 'translate(-50%, -50%)',
           background: '#F0F0F5',
           color: '#000000',
@@ -44,6 +46,8 @@ export function Modal({
         },
         overlay: {
           backgroundColor: 'rgba(0, 0, 0, 0.5)',
+          paddingLeft: '4px',
+          paddingRight: '4px',
         },
       }}
     >

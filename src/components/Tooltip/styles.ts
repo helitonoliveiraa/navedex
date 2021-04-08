@@ -13,7 +13,7 @@ export const Container = styled.div`
       display: block;
       width: max-content;
       padding: 0.8rem;
-      border-radius: 0.6rem;
+      border-radius: 0;
 
       background: ${theme.colors['gray-800']};
       color: ${theme.colors.white};

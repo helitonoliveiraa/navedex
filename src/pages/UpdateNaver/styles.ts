@@ -44,6 +44,19 @@ export const Container = styled.div`
 
           animation: ${APPEAR_FROM_RIGHT} 1s ease-in-out;
         }
+
+        @media (max-width: 500px) {
+          a {
+            svg {
+              width: 3rem;
+              height: 3rem;
+            }
+          }
+
+          strong {
+            font-size: 2rem;
+          }
+        }
       }
     }
   `}
@@ -56,6 +69,10 @@ export const InputContainer = styled.div`
   gap: 3.2rem;
 
   animation: ${FADE} 1s ease-in-out;
+
+  @media (max-width: 460px) {
+    flex-direction: column;
+  }
 `;
 
 export const SaveButton = styled(Button)`

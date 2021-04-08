@@ -11,7 +11,7 @@ export const Container = styled.header`
       max-width: 1240px;
       height: 8.5rem;
       margin: 0 auto;
-      padding: 0 2rem;
+      padding: 0 4rem;
 
       display: flex;
       align-items: center;

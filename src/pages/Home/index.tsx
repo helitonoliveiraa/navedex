@@ -11,9 +11,7 @@ import * as S from './styles';
 import { Loader } from '../../components/Loader';
 
 export function Home(): JSX.Element {
-  const {
-    navers, isDeleted, setIsDeleted, loading,
-  } = useNaverData();
+  const { navers, isDeleted, setIsDeleted, loading } = useNaverData();
   const history = useHistory();
 
   function closeNotification() {
