@@ -2,7 +2,7 @@ import { useRef, useState } from 'react';
 import { Form } from '@unform/web';
 import { FormHandles, FormHelpers } from '@unform/core';
 import { MdKeyboardArrowLeft } from 'react-icons/md';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { MdClose } from 'react-icons/md';
 import * as Yup from 'yup';
 
@@ -27,7 +27,6 @@ export function CreateNaver(): JSX.Element {
 
   const { addToast } = useToast();
   const { createNewNaver } = useNaverData();
-  const history = useHistory();
 
   async function handleCreateNewNaver(
     data: AddFormData,
@@ -73,7 +72,6 @@ export function CreateNaver(): JSX.Element {
 
   function closeSuccessModal() {
     setOpenSuccessModal(false);
-    // history.push('/home');
   }
 
   return (
