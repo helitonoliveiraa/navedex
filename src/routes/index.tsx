@@ -3,6 +3,7 @@ import { Route } from './Route';
 
 import { SignIn } from '../pages/SignIn';
 import { Home } from '../pages/Home';
+import { Header } from '../components/Header';
 
 import { CreateNaver } from '../pages/CreateNaver';
 import { UpdateNaver } from '../pages/UpdateNaver';
@@ -15,9 +16,12 @@ export function Routes(): JSX.Element {
       <Route path="/" exact component={SignIn} />
 
       <NaverDataProvider>
-        <Route path="/home" exact component={Home} isPrivate />
-        <Route path="/create-naver" exact component={CreateNaver} isPrivate />
-        <Route path="/edit-naver" exact component={UpdateNaver} isPrivate />
+        <>
+          <Header />
+          <Route path="/home" exact component={Home} isPrivate />
+          <Route path="/create-naver" exact component={CreateNaver} isPrivate />
+          <Route path="/edit-naver" exact component={UpdateNaver} isPrivate />
+        </>
       </NaverDataProvider>
     </Switch>
   );

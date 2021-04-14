@@ -11,7 +11,6 @@ import { useNaverData } from '../../hooks/naverData';
 import { useToast } from '../../hooks/toast';
 import { Naver } from '../../types';
 
-import { Header } from '../../components/Header';
 import { Input } from '../../components/Input';
 import { SmallModal } from '../../components/SmallModal';
 import { Loader } from '../../components/Loader';
@@ -75,62 +74,59 @@ export function CreateNaver(): JSX.Element {
   }
 
   return (
-    <>
-      <Header />
-      <S.Container>
-        <Form ref={formRef} onSubmit={handleCreateNewNaver}>
-          <div>
-            <Link to="/home">
-              <MdKeyboardArrowLeft />
-            </Link>
-            <strong>Adicionar Naver</strong>
-          </div>
+    <S.Container>
+      <Form ref={formRef} onSubmit={handleCreateNewNaver}>
+        <div>
+          <Link to="/home">
+            <MdKeyboardArrowLeft />
+          </Link>
+          <strong>Adicionar Naver</strong>
+        </div>
 
-          <S.InputGroup>
-            <Input name="name" id="name" placeholder="Nome" />
+        <S.InputGroup>
+          <Input name="name" id="name" placeholder="Nome" />
 
-            <Input name="job_role" id="job_role" placeholder="Cargo" />
-          </S.InputGroup>
+          <Input name="job_role" id="job_role" placeholder="Cargo" />
+        </S.InputGroup>
 
-          <S.InputGroup>
-            <Input name="birthdate" id="birthdate" placeholder="Idade" />
+        <S.InputGroup>
+          <Input name="birthdate" id="birthdate" placeholder="Idade" />
 
-            <Input
-              name="admission_date"
-              id="admission_date"
-              placeholder="Tempo de empresa"
-            />
-          </S.InputGroup>
+          <Input
+            name="admission_date"
+            id="admission_date"
+            placeholder="Tempo de empresa"
+          />
+        </S.InputGroup>
 
-          <S.InputGroup>
-            <Input
-              name="project"
-              id="project"
-              placeholder="Projetos que participou"
-            />
+        <S.InputGroup>
+          <Input
+            name="project"
+            id="project"
+            placeholder="Projetos que participou"
+          />
 
-            <Input name="url" id="url" placeholder="URL da foto do Naver" />
-          </S.InputGroup>
+          <Input name="url" id="url" placeholder="URL da foto do Naver" />
+        </S.InputGroup>
 
-          <S.AddNaverButton type="submit">
-            {loading && <Loader />}
-            Salvar
-          </S.AddNaverButton>
-        </Form>
+        <S.AddNaverButton type="submit">
+          {loading && <Loader />}
+          Salvar
+        </S.AddNaverButton>
+      </Form>
 
-        {openSuccessModal && (
-          <SmallModal isOpen={openSuccessModal} setIsOpen={closeSuccessModal}>
-            <S.Notification>
-              <button type="button" onClick={closeSuccessModal}>
-                <MdClose />
-              </button>
-              <header>Naver criado</header>
+      {openSuccessModal && (
+        <SmallModal isOpen={openSuccessModal} setIsOpen={closeSuccessModal}>
+          <S.Notification>
+            <button type="button" onClick={closeSuccessModal}>
+              <MdClose />
+            </button>
+            <header>Naver criado</header>
 
-              <span>Naver criado com sucesso!</span>
-            </S.Notification>
-          </SmallModal>
-        )}
-      </S.Container>
-    </>
+            <span>Naver criado com sucesso!</span>
+          </S.Notification>
+        </SmallModal>
+      )}
+    </S.Container>
   );
 }

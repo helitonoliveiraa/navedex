@@ -10,7 +10,6 @@ import { getValidationErrors } from '../../utils/validationErros';
 import { useNaverData } from '../../hooks/naverData';
 import { useToast } from '../../hooks/toast';
 
-import { Header } from '../../components/Header';
 import { Input } from '../../components/Input';
 import { SmallModal } from '../../components/SmallModal';
 
@@ -82,66 +81,63 @@ export function UpdateNaver(): JSX.Element {
     history.goBack();
   }
   return (
-    <>
-      <Header />
-      <S.Container>
-        <Form
-          ref={formRef}
-          initialData={updateNaverData}
-          onSubmit={handleUpdateNaver}
-        >
-          <div>
-            <Link to="/home">
-              <MdKeyboardArrowLeft />
-            </Link>
-            <strong>Editar Naver</strong>
-          </div>
+    <S.Container>
+      <Form
+        ref={formRef}
+        initialData={updateNaverData}
+        onSubmit={handleUpdateNaver}
+      >
+        <div>
+          <Link to="/home">
+            <MdKeyboardArrowLeft />
+          </Link>
+          <strong>Editar Naver</strong>
+        </div>
 
-          <S.InputContainer>
-            <Input name="name" id="name" placeholder="Nome" />
+        <S.InputContainer>
+          <Input name="name" id="name" placeholder="Nome" />
 
-            <Input name="job_role" id="job_role" placeholder="Cargo" />
-          </S.InputContainer>
+          <Input name="job_role" id="job_role" placeholder="Cargo" />
+        </S.InputContainer>
 
-          <S.InputContainer>
-            <Input name="birthdate" id="birthdate" placeholder="Idade" />
+        <S.InputContainer>
+          <Input name="birthdate" id="birthdate" placeholder="Idade" />
 
-            <Input
-              name="admission_date"
-              id="admission_date"
-              placeholder="Tempo de empresa"
-            />
-          </S.InputContainer>
+          <Input
+            name="admission_date"
+            id="admission_date"
+            placeholder="Tempo de empresa"
+          />
+        </S.InputContainer>
 
-          <S.InputContainer>
-            <Input
-              name="project"
-              id="project"
-              placeholder="Projetos que participou"
-            />
+        <S.InputContainer>
+          <Input
+            name="project"
+            id="project"
+            placeholder="Projetos que participou"
+          />
 
-            <Input name="url" id="url" placeholder="URL da foto do Naver" />
-          </S.InputContainer>
+          <Input name="url" id="url" placeholder="URL da foto do Naver" />
+        </S.InputContainer>
 
-          <S.SaveButton type="submit">
-            {loading && <Loader />}
-            Salvar
-          </S.SaveButton>
-        </Form>
+        <S.SaveButton type="submit">
+          {loading && <Loader />}
+          Salvar
+        </S.SaveButton>
+      </Form>
 
-        {openSuccessModal && (
-          <SmallModal isOpen={openSuccessModal} setIsOpen={closeSuccessModal}>
-            <S.Notification>
-              <button type="button" onClick={closeSuccessModal}>
-                <MdClose />
-              </button>
-              <header>Naver atualizado</header>
+      {openSuccessModal && (
+        <SmallModal isOpen={openSuccessModal} setIsOpen={closeSuccessModal}>
+          <S.Notification>
+            <button type="button" onClick={closeSuccessModal}>
+              <MdClose />
+            </button>
+            <header>Naver atualizado</header>
 
-              <span>Naver atualizado com sucesso!</span>
-            </S.Notification>
-          </SmallModal>
-        )}
-      </S.Container>
-    </>
+            <span>Naver atualizado com sucesso!</span>
+          </S.Notification>
+        </SmallModal>
+      )}
+    </S.Container>
   );
 }

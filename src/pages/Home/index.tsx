@@ -1,7 +1,6 @@
 import { useHistory } from 'react-router-dom';
 
 import { MdClose } from 'react-icons/md';
-import { Header } from '../../components/Header';
 import { Card } from '../../components/Card';
 
 import { useNaverData } from '../../hooks/naverData';
@@ -20,8 +19,6 @@ export function Home(): JSX.Element {
 
   return (
     <S.Container>
-      <Header />
-
       <S.Content>
         <S.ContentHeader>
           <strong>Navers</strong>
