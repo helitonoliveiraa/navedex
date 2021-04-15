@@ -101,12 +101,20 @@ export function UpdateNaver(): JSX.Element {
         </S.InputContainer>
 
         <S.InputContainer>
-          <Input name="birthdate" id="birthdate" placeholder="Idade" />
+          <Input
+            name="birthdate"
+            id="birthdate"
+            placeholder="Idade"
+            mask="date"
+            maxLength={10}
+          />
 
           <Input
             name="admission_date"
             id="admission_date"
             placeholder="Tempo de empresa"
+            mask="date"
+            maxLength={10}
           />
         </S.InputContainer>
 

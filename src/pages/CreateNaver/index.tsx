@@ -7,6 +7,7 @@ import { MdClose } from 'react-icons/md';
 import * as Yup from 'yup';
 
 import { getValidationErrors } from '../../utils/validationErros';
+
 import { useNaverData } from '../../hooks/naverData';
 import { useToast } from '../../hooks/toast';
 import { Naver } from '../../types';
@@ -38,14 +39,13 @@ export function CreateNaver(): JSX.Element {
       const schema = Yup.object().shape({
         name: Yup.string().required('O nome é obrigatório'),
         job_role: Yup.string().required('O cargo é obrigatório'),
-        birthdate: Yup.string().required('Data de nascimento obrigatória'),
-        admission_date: Yup.string().required('Date de admissão obrigatória'),
+        birthdate: Yup.string().required('Obrigatório. (apenas números)'),
+        admission_date: Yup.string().required('Obrigatório. (apenas números)'),
         project: Yup.string().required('Informe um projeto'),
         url: Yup.string().required('URL da foto é obrigatória'),
       });
 
       await schema.validate(data, { abortEarly: false });
-
       await createNewNaver(data);
 
       reset();
@@ -90,12 +90,20 @@ export function CreateNaver(): JSX.Element {
         </S.InputGroup>
 
         <S.InputGroup>
-          <Input name="birthdate" id="birthdate" placeholder="Idade" />
+          <Input
+            name="birthdate"
+            id="birthdate"
+            placeholder="Idade"
+            mask="date"
+            maxLength={10}
+          />
 
           <Input
             name="admission_date"
             id="admission_date"
             placeholder="Tempo de empresa"
+            mask="date"
+            maxLength={10}
           />
         </S.InputGroup>
 

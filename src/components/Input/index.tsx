@@ -4,10 +4,13 @@ import {
   useEffect,
   useState,
   useCallback,
+  FormEvent,
 } from 'react';
 import { IconBaseProps } from 'react-icons';
 import { useField } from '@unform/core';
 import { MdError } from 'react-icons/md';
+
+import { dateMask } from './masks';
 
 import * as S from './styles';
 
@@ -15,6 +18,7 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   id: string;
   name: string;
   placeholder: string;
+  mask?: 'date';
   containerStyle?: object;
   icon?: React.ComponentType<IconBaseProps>;
 }
@@ -23,6 +27,7 @@ export function Input({
   id,
   name,
   placeholder,
+  mask,
   containerStyle,
   icon: Icon,
   ...rest
@@ -41,6 +46,10 @@ export function Input({
       path: 'value',
     });
   }, [fieldName, registerField]);
+
+  const handleKeyUp = useCallback((event: FormEvent<HTMLInputElement>) => {
+    dateMask(event);
+  }, []);
 
   const handleInputFocus = useCallback(() => {
     setIsFocused(true);
@@ -70,6 +79,7 @@ export function Input({
           onFocus={handleInputFocus}
           onBlur={handleInputBlur}
           placeholder={placeholder}
+          onKeyUp={mask && handleKeyUp}
         />
 
         {error && (
