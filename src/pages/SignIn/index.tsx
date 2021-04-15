@@ -72,7 +72,6 @@ export function SignIn(): JSX.Element {
         <Input name="email" id="email" placeholder="E-mail" />
 
         <Input
-          containerStyle={{ marginTop: 32 }}
           type="password"
           name="password"
           id="password"
